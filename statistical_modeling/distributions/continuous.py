@@ -1,0 +1,164 @@
+from .base import *
+from abc import abstractmethod
+
+from numpy import random
+import math
+
+from functools import cached_property
+
+__all__ = ['ContinuousUniformDistribution',
+           'NormalDistribution',
+           'ExponentialDistribution',
+           'ChiSquareDistribution',
+           'StudentDistribution']
+
+
+class ContinuousDistribution(Distribution):
+    class Algorithm(DistributionAlgorithm):
+        pass
+
+    @abstractmethod
+    def generate(self, algorithm: Algorithm = 1) -> float:
+        pass
+
+
+class ContinuousUniformDistribution(ContinuousDistribution):
+    class Algorithm(DistributionAlgorithm):
+        standard = 1
+
+    _a: int
+    _b: int
+
+    def __init__(self, a: int = 0, b: int = 1):
+        self._a = a
+        self._b = b
+
+    def generate(self, algorithm: Algorithm = 1) -> float:
+        return (self._b - self._a) * random.uniform() + self._a
+
+    @property
+    def a(self) -> int:
+        return self._a
+
+    @property
+    def b(self) -> int:
+        return self._b
+
+    @cached_property
+    def E(self) -> float:
+        return (self._a + self._b) / 2
+
+    @cached_property
+    def D(self) -> float:
+        return ((self._b - self._a)**2) / 12
+
+
+class NormalDistribution(ContinuousDistribution):
+    class Algorithm(DistributionAlgorithm):
+        box_miller = 1
+        central_limit_theorem = 2
+
+    _m: float
+    _σ: float
+
+    def __init__(self, m: float, σ: float):
+        self._m = m
+        self._σ = σ
+
+    def generate(self, algorithm: Algorithm = 1) -> float:
+        if algorithm == self.Algorithm.central_limit_theorem:
+            return sum([random.uniform() for _ in range(12)]) - 6
+        elif algorithm == self.Algorithm.box_miller:
+            return math.sqrt(-2 * math.log(random.uniform())) * math.cos(2 * math.pi * random.uniform())
+
+    @property
+    def m(self) -> float:
+        return self._m
+
+    @property
+    def σ(self) -> float:
+        return self._σ
+
+    @cached_property
+    def E(self) -> float:
+        return self._m
+
+    @cached_property
+    def D(self) -> float:
+        return self._σ**2
+
+
+class ExponentialDistribution(ContinuousDistribution):
+    class Algorithm(DistributionAlgorithm):
+        standard = 1
+
+    _β: float
+
+    def __init__(self, β: float):
+        self._β = β
+
+    def generate(self, algorithm: Algorithm = 1) -> float:
+        return -self._β * math.log(random.uniform())
+
+    @property
+    def β(self) -> float:
+        return self._β
+
+    @cached_property
+    def E(self) -> float:
+        return self._β
+
+    @cached_property
+    def D(self) -> float:
+        return self._β**2
+
+
+class ChiSquareDistribution(ContinuousDistribution):
+    class Algorithm(DistributionAlgorithm):
+        standard = 1
+
+    _n: int
+
+    def __init__(self, n: int):
+        assert n > 0
+        self._n = n
+
+    def generate(self, algorithm: Algorithm = 1) -> float:
+        return sum([random.uniform()**2 for _ in range(self._n)])
+
+    @property
+    def n(self) -> int:
+        return self._n
+
+    @cached_property
+    def E(self) -> float:
+        return self._n
+
+    @cached_property
+    def D(self) -> float:
+        return 2 * self._n
+
+
+class StudentDistribution(ContinuousDistribution):
+    class Algorithm(DistributionAlgorithm):
+        standard = 1
+
+    _n: float
+
+    def __init__(self, n: int):
+        assert n > 0
+        self._n = n
+
+    def generate(self, algorithm: Algorithm = 1) -> float:
+        return random.uniform() / math.sqrt(random.chisquare(self._n) / self._n)
+
+    @cached_property
+    def E(self) -> float:
+        return 0
+
+    @cached_property
+    def D(self) -> float:
+        if self._n > 2:
+            return self._n / (self._n - 2)
+        else:
+            return math.inf
