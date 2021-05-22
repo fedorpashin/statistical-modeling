@@ -35,7 +35,7 @@ class DiscreteDistribution(Distribution):
 
 class DiscreteUniformDistribution(DiscreteDistribution):
     class Algorithm(DistributionAlgorithm):
-        default = 1
+        standard = 1
 
     _a: int
     _b: int
@@ -231,7 +231,7 @@ class PoissonDistribution(DiscreteDistribution):
 
 class LogarithmicDistribution(DiscreteDistribution):
     class Algorithm(DistributionAlgorithm):
-        default = 1
+        standard = 1
 
     _q: float
 
