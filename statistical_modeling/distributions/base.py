@@ -1,3 +1,4 @@
+from statistical_modeling.sample import Sample
 from abc import ABC, abstractmethod
 from enum import Enum
 
@@ -15,8 +16,11 @@ class Distribution(ABC):
         pass
 
     @abstractmethod
-    def generate(self, algorithm: Algorithm = 1) -> float:
+    def value(self, algorithm: Algorithm = 1) -> float:
         pass
+
+    def sample(self, n: int, algorithm: Algorithm = 1) -> Sample:
+        return Sample([self.value(algorithm) for _ in range(n)])
 
     @cached_property
     @abstractmethod
