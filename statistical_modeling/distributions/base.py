@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Optional
 from enum import Enum
 
 from functools import cached_property
@@ -16,7 +15,7 @@ class Distribution(ABC):
         pass
 
     @abstractmethod
-    def generate(self, algorithm: Optional[Algorithm]) -> float:
+    def generate(self, algorithm: Algorithm = 1) -> float:
         pass
 
     @cached_property
