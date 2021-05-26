@@ -1,4 +1,4 @@
-from ..distributions.discrete import *
+from statistical_modeling.distributions.discrete import *
 
 import unittest
 from numpy.testing import assert_allclose
