@@ -60,12 +60,12 @@ class ContinuousUniformDistribution(ContinuousDistribution):
 
 class NormalDistribution(ContinuousDistribution):
     class Algorithm(Enum):
-        box_miller = 1
+        box_muller = 1
         central_limit_theorem = 2
 
     @property
     def default_algorithm(self) -> Algorithm:
-        return self.Algorithm.box_miller
+        return self.Algorithm.box_muller
 
     _m: float
     _σ: float
@@ -77,7 +77,7 @@ class NormalDistribution(ContinuousDistribution):
     def value(self, algorithm: Algorithm = default_algorithm) -> float:  # type: ignore
         if algorithm == self.Algorithm.central_limit_theorem:
             return sum([random.uniform() for _ in range(12)]) - 6
-        elif algorithm == self.Algorithm.box_miller:
+        elif algorithm == self.Algorithm.box_muller:
             return math.sqrt(-2 * math.log(random.uniform())) * math.cos(2 * math.pi * random.uniform())
 
     @property
