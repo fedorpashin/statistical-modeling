@@ -38,9 +38,7 @@ class DiscreteUniformDistribution(DiscreteDistribution):
     class Algorithm(Enum):
         standard = 1
 
-    @property
-    def default_algorithm(self) -> Algorithm:
-        return self.Algorithm.standard
+    default_algorithm = Algorithm.standard
 
     _a: int
     _b: int
@@ -78,9 +76,7 @@ class BinomialDistribution(DiscreteDistribution):
         cumulative = 1
         normal_approximation = 2
 
-    @property
-    def default_algorithm(self) -> Algorithm:
-        return self.Algorithm.cumulative
+    default_algorithm = Algorithm.cumulative
 
     _n: int
     _p: float
@@ -193,9 +189,7 @@ class PoissonDistribution(DiscreteDistribution):
         multiplication = 2
         normal_approximation = 3
 
-    @property
-    def default_algorithm(self) -> Algorithm:
-        return self.Algorithm.cumulative
+    default_algorithm = Algorithm.cumulative
 
     _μ: float
     _threshold: int = 88
@@ -250,9 +244,7 @@ class LogarithmicDistribution(DiscreteDistribution):
     class Algorithm(Enum):
         standard = 1
 
-    @property
-    def default_algorithm(self) -> Algorithm:
-        return self.Algorithm.standard
+    default_algorithm = Algorithm.standard
 
     _q: float
 

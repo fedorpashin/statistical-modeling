@@ -27,9 +27,7 @@ class ContinuousUniformDistribution(ContinuousDistribution):
     class Algorithm(Enum):
         standard = 1
 
-    @property
-    def default_algorithm(self) -> Algorithm:
-        return self.Algorithm.standard
+    default_algorithm = Algorithm.standard
 
     _a: int
     _b: int
@@ -63,14 +61,12 @@ class StandardNormalDistribution(ContinuousDistribution):
         box_muller = 1
         central_limit_theorem = 2
 
-    @property
-    def default_algorithm(self) -> Algorithm:
-        return self.Algorithm.box_muller
+    default_algorithm = Algorithm.box_muller
 
     _µ: float = 0
     _σ: float = 1
 
-    def value(self, algorithm: Algorithm = default_algorithm) -> float:  # type: ignore
+    def value(self, algorithm: Algorithm = default_algorithm) -> float:
         if algorithm == self.Algorithm.central_limit_theorem:
             return sum([random.uniform() for _ in range(12)]) - 6
         elif algorithm == self.Algorithm.box_muller:
@@ -97,9 +93,7 @@ class ExponentialDistribution(ContinuousDistribution):
     class Algorithm(Enum):
         standard = 1
 
-    @property
-    def default_algorithm(self) -> Algorithm:
-        return self.Algorithm.standard
+    default_algorithm = Algorithm.standard
 
     _β: float
 
@@ -126,9 +120,7 @@ class ChiSquareDistribution(ContinuousDistribution):
     class Algorithm(Enum):
         standard = 1
 
-    @property
-    def default_algorithm(self) -> Algorithm:
-        return self.Algorithm.standard
+    default_algorithm = Algorithm.standard
 
     _n: int
 
@@ -137,7 +129,7 @@ class ChiSquareDistribution(ContinuousDistribution):
         self._n = n
 
     def value(self, algorithm: Algorithm = default_algorithm) -> float:  # type: ignore
-        return sum([StandardNormalDistribution() for _ in range(self._n)])
+        return sum([StandardNormalDistribution().value()**2 for _ in range(self._n)])
 
     @property
     def n(self) -> int:
@@ -156,9 +148,7 @@ class StudentDistribution(ContinuousDistribution):
     class Algorithm(Enum):
         standard = 1
 
-    @property
-    def default_algorithm(self) -> Algorithm:
-        return self.Algorithm.standard
+    default_algorithm = Algorithm.standard
 
     _n: float
 
