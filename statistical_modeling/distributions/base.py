@@ -16,10 +16,10 @@ class Distribution(ABC):
         pass
 
     @abstractmethod
-    def value(self, algorithm: Algorithm = 1) -> float:
+    def value(self, algorithm: Algorithm) -> float:
         pass
 
-    def sample(self, n: int, algorithm: Algorithm = 1) -> Sample:
+    def sample(self, n: int, algorithm: Algorithm) -> Sample:
         return Sample([self.value(algorithm) for _ in range(n)])
 
     @cached_property

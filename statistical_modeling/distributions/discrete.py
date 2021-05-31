@@ -29,7 +29,7 @@ class DiscreteDistribution(Distribution):
         pass
 
     @abstractmethod
-    def value(self, algorithm: Algorithm = 1) -> int:
+    def value(self, algorithm: Algorithm) -> int:
         pass
 
 
@@ -44,7 +44,7 @@ class DiscreteUniformDistribution(DiscreteDistribution):
         self._a = a
         self._b = b
 
-    def value(self, algorithm: Algorithm = 1) -> int:
+    def value(self, algorithm: Algorithm = Algorithm.standard) -> int:  # type: ignore
         return math.floor(self.n * random.uniform() + self._a)
 
     @property
@@ -83,7 +83,7 @@ class BinomialDistribution(DiscreteDistribution):
         self._n = n
         self._p = p
 
-    def value(self, algorithm: Algorithm = 1) -> int:
+    def value(self, algorithm: Algorithm = Algorithm.cumulative) -> int:  # type: ignore
         n = self._n
         p = self._p
         q = self._q
@@ -138,7 +138,7 @@ class GeometricDistribution(DiscreteDistribution):
         assert 0 <= p <= 1
         self._p = p
 
-    def value(self, algorithm: Algorithm = 1) -> int:
+    def value(self, algorithm: Algorithm = Algorithm.cumulative) -> int:  # type: ignore
         if algorithm == self.Algorithm.cumulative:
             @lru_cache
             def p_of(x):
@@ -187,7 +187,7 @@ class PoissonDistribution(DiscreteDistribution):
         assert μ > 0
         self._μ = μ
 
-    def value(self, algorithm: Algorithm = 1) -> int:
+    def value(self, algorithm: Algorithm = Algorithm.cumulative) -> int:  # type: ignore
         μ = self._μ
         if (algorithm == self.Algorithm.cumulative
                 or algorithm is None and μ < self._threshold):
@@ -239,7 +239,7 @@ class LogarithmicDistribution(DiscreteDistribution):
         assert 0 <= q <= 1
         self._q = q
 
-    def value(self, algorithm: Algorithm = 1) -> int:
+    def value(self, algorithm: Algorithm = Algorithm.standard) -> int:  # type: ignore
         @lru_cache
         def p_of(x):
             if x == 1:
