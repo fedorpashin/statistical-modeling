@@ -1,5 +1,6 @@
-from .base import Distribution, DistributionAlgorithm
+from .base import Distribution
 from abc import abstractmethod
+from enum import Enum
 
 from numpy import random
 import math
@@ -14,7 +15,7 @@ __all__ = ['ContinuousUniformDistribution',
 
 
 class ContinuousDistribution(Distribution):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         pass
 
     @abstractmethod
@@ -23,7 +24,7 @@ class ContinuousDistribution(Distribution):
 
 
 class ContinuousUniformDistribution(ContinuousDistribution):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         standard = 1
 
     @property
@@ -58,7 +59,7 @@ class ContinuousUniformDistribution(ContinuousDistribution):
 
 
 class NormalDistribution(ContinuousDistribution):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         box_miller = 1
         central_limit_theorem = 2
 
@@ -97,7 +98,7 @@ class NormalDistribution(ContinuousDistribution):
 
 
 class ExponentialDistribution(ContinuousDistribution):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         standard = 1
 
     @property
@@ -126,7 +127,7 @@ class ExponentialDistribution(ContinuousDistribution):
 
 
 class ChiSquareDistribution(ContinuousDistribution):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         standard = 1
 
     @property
@@ -156,7 +157,7 @@ class ChiSquareDistribution(ContinuousDistribution):
 
 
 class StudentDistribution(ContinuousDistribution):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         standard = 1
 
     @property

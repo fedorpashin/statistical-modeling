@@ -1,5 +1,6 @@
-from .base import Distribution, DistributionAlgorithm
+from .base import Distribution
 from abc import abstractmethod
+from enum import Enum
 from typing import Callable
 
 from numpy import random
@@ -25,7 +26,7 @@ def _cumulative(p_of: Callable[[int], float], x: int = 0) -> int:
 
 
 class DiscreteDistribution(Distribution):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         pass
 
     @abstractmethod
@@ -34,7 +35,7 @@ class DiscreteDistribution(Distribution):
 
 
 class DiscreteUniformDistribution(DiscreteDistribution):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         standard = 1
 
     @property
@@ -73,7 +74,7 @@ class DiscreteUniformDistribution(DiscreteDistribution):
 
 
 class BinomialDistribution(DiscreteDistribution):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         cumulative = 1
         normal_approximation = 2
 
@@ -135,7 +136,7 @@ class BinomialDistribution(DiscreteDistribution):
 
 
 class GeometricDistribution(DiscreteDistribution):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         cumulative = 1
         forward = 2
         improved_cumulative = 3
@@ -187,7 +188,7 @@ class GeometricDistribution(DiscreteDistribution):
 
 
 class PoissonDistribution(DiscreteDistribution):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         cumulative = 1
         multiplication = 2
         normal_approximation = 3
@@ -246,7 +247,7 @@ class PoissonDistribution(DiscreteDistribution):
 
 
 class LogarithmicDistribution(DiscreteDistribution):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         standard = 1
 
     @property

@@ -4,15 +4,9 @@ from enum import Enum
 
 from functools import cached_property
 
-__all__ = ['DistributionAlgorithm', 'Distribution']
-
-
-class DistributionAlgorithm(Enum):
-    pass
-
 
 class Distribution(ABC):
-    class Algorithm(DistributionAlgorithm):
+    class Algorithm(Enum):
         pass
 
     @property
