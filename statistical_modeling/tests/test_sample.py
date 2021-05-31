@@ -1,4 +1,4 @@
-from statistical_modeling.sample import *
+from statistical_modeling.sample import Sample
 
 import unittest
 from numpy.testing import assert_allclose

@@ -1,7 +1,5 @@
 from functools import cached_property
 
-__all__ = ['Sample']
-
 
 class Sample:
     _x: list[float]
