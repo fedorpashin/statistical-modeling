@@ -15,11 +15,16 @@ class Distribution(ABC):
     class Algorithm(DistributionAlgorithm):
         pass
 
+    @property
+    @abstractmethod
+    def default_algorithm(self) -> Algorithm:
+        pass
+
     @abstractmethod
     def value(self, algorithm: Algorithm) -> float:
         pass
 
-    def sample(self, n: int, algorithm: Algorithm) -> Sample:
+    def sample(self, n: int, algorithm: Algorithm = default_algorithm) -> Sample:  # type: ignore
         return Sample([self.value(algorithm) for _ in range(n)])
 
     @cached_property

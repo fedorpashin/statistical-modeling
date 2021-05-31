@@ -26,6 +26,10 @@ class ContinuousUniformDistribution(ContinuousDistribution):
     class Algorithm(DistributionAlgorithm):
         standard = 1
 
+    @property
+    def default_algorithm(self) -> Algorithm:
+        return self.Algorithm.standard
+
     _a: int
     _b: int
 
@@ -33,7 +37,7 @@ class ContinuousUniformDistribution(ContinuousDistribution):
         self._a = a
         self._b = b
 
-    def value(self, algorithm: Algorithm = Algorithm.standard) -> float:  # type: ignore
+    def value(self, algorithm: Algorithm = default_algorithm) -> float:  # type: ignore
         return (self._b - self._a) * random.uniform() + self._a
 
     @property
@@ -58,6 +62,10 @@ class NormalDistribution(ContinuousDistribution):
         box_miller = 1
         central_limit_theorem = 2
 
+    @property
+    def default_algorithm(self) -> Algorithm:
+        return self.Algorithm.box_miller
+
     _m: float
     _σ: float
 
@@ -65,7 +73,7 @@ class NormalDistribution(ContinuousDistribution):
         self._m = m
         self._σ = σ
 
-    def value(self, algorithm: Algorithm = Algorithm.box_miller) -> float:  # type: ignore
+    def value(self, algorithm: Algorithm = default_algorithm) -> float:  # type: ignore
         if algorithm == self.Algorithm.central_limit_theorem:
             return sum([random.uniform() for _ in range(12)]) - 6
         elif algorithm == self.Algorithm.box_miller:
@@ -92,12 +100,16 @@ class ExponentialDistribution(ContinuousDistribution):
     class Algorithm(DistributionAlgorithm):
         standard = 1
 
+    @property
+    def default_algorithm(self) -> Algorithm:
+        return self.Algorithm.standard
+
     _β: float
 
     def __init__(self, β: float):
         self._β = β
 
-    def value(self, algorithm: Algorithm = Algorithm.standard) -> float:  # type: ignore
+    def value(self, algorithm: Algorithm = default_algorithm) -> float:  # type: ignore
         return -self._β * math.log(random.uniform())
 
     @property
@@ -117,13 +129,17 @@ class ChiSquareDistribution(ContinuousDistribution):
     class Algorithm(DistributionAlgorithm):
         standard = 1
 
+    @property
+    def default_algorithm(self) -> Algorithm:
+        return self.Algorithm.standard
+
     _n: int
 
     def __init__(self, n: int):
         assert n > 0
         self._n = n
 
-    def value(self, algorithm: Algorithm = Algorithm.standard) -> float:  # type: ignore
+    def value(self, algorithm: Algorithm = default_algorithm) -> float:  # type: ignore
         return sum([random.uniform()**2 for _ in range(self._n)])
 
     @property
@@ -143,13 +159,17 @@ class StudentDistribution(ContinuousDistribution):
     class Algorithm(DistributionAlgorithm):
         standard = 1
 
+    @property
+    def default_algorithm(self) -> Algorithm:
+        return self.Algorithm.standard
+
     _n: float
 
     def __init__(self, n: int):
         assert n > 0
         self._n = n
 
-    def value(self, algorithm: Algorithm = Algorithm.standard) -> float:  # type: ignore
+    def value(self, algorithm: Algorithm = default_algorithm) -> float:  # type: ignore
         return random.uniform() / math.sqrt(random.chisquare(self._n) / self._n)
 
     @cached_property

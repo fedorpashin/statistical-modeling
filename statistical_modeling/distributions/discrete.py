@@ -37,6 +37,10 @@ class DiscreteUniformDistribution(DiscreteDistribution):
     class Algorithm(DistributionAlgorithm):
         standard = 1
 
+    @property
+    def default_algorithm(self) -> Algorithm:
+        return self.Algorithm.standard
+
     _a: int
     _b: int
 
@@ -44,7 +48,7 @@ class DiscreteUniformDistribution(DiscreteDistribution):
         self._a = a
         self._b = b
 
-    def value(self, algorithm: Algorithm = Algorithm.standard) -> int:  # type: ignore
+    def value(self, algorithm: Algorithm = default_algorithm) -> int:  # type: ignore
         return math.floor(self.n * random.uniform() + self._a)
 
     @property
@@ -73,6 +77,10 @@ class BinomialDistribution(DiscreteDistribution):
         cumulative = 1
         normal_approximation = 2
 
+    @property
+    def default_algorithm(self) -> Algorithm:
+        return self.Algorithm.cumulative
+
     _n: int
     _p: float
     _threshold: int = 100
@@ -83,7 +91,7 @@ class BinomialDistribution(DiscreteDistribution):
         self._n = n
         self._p = p
 
-    def value(self, algorithm: Algorithm = Algorithm.cumulative) -> int:  # type: ignore
+    def value(self, algorithm: Algorithm = default_algorithm) -> int:  # type: ignore
         n = self._n
         p = self._p
         q = self._q
@@ -132,13 +140,17 @@ class GeometricDistribution(DiscreteDistribution):
         forward = 2
         improved_cumulative = 3
 
+    @property
+    def default_algorithm(self) -> Algorithm:
+        return self.Algorithm.cumulative
+
     _p: float
 
     def __init__(self, p: float):
         assert 0 <= p <= 1
         self._p = p
 
-    def value(self, algorithm: Algorithm = Algorithm.cumulative) -> int:  # type: ignore
+    def value(self, algorithm: Algorithm = default_algorithm) -> int:  # type: ignore
         if algorithm == self.Algorithm.cumulative:
             @lru_cache
             def p_of(x):
@@ -180,6 +192,10 @@ class PoissonDistribution(DiscreteDistribution):
         multiplication = 2
         normal_approximation = 3
 
+    @property
+    def default_algorithm(self) -> Algorithm:
+        return self.Algorithm.cumulative
+
     _μ: float
     _threshold: int = 88
 
@@ -187,7 +203,7 @@ class PoissonDistribution(DiscreteDistribution):
         assert μ > 0
         self._μ = μ
 
-    def value(self, algorithm: Algorithm = Algorithm.cumulative) -> int:  # type: ignore
+    def value(self, algorithm: Algorithm = default_algorithm) -> int:  # type: ignore
         μ = self._μ
         if (algorithm == self.Algorithm.cumulative
                 or algorithm is None and μ < self._threshold):
@@ -233,13 +249,17 @@ class LogarithmicDistribution(DiscreteDistribution):
     class Algorithm(DistributionAlgorithm):
         standard = 1
 
+    @property
+    def default_algorithm(self) -> Algorithm:
+        return self.Algorithm.standard
+
     _q: float
 
     def __init__(self, q: float):
         assert 0 <= q <= 1
         self._q = q
 
-    def value(self, algorithm: Algorithm = Algorithm.standard) -> int:  # type: ignore
+    def value(self, algorithm: Algorithm = default_algorithm) -> int:  # type: ignore
         @lru_cache
         def p_of(x):
             if x == 1:
