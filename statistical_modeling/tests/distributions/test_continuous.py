@@ -15,7 +15,7 @@ class TestContinuousUniform(unittest.TestCase):
 
 class TestNormal(unittest.TestCase):
     def test_quantities(self):
-        d = NormalDistribution(0, 1)
+        d = StandardNormalDistribution()
         with self.subTest():
             assert_allclose(d.E, 0)
         with self.subTest():

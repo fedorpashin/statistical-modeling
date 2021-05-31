@@ -8,7 +8,7 @@ import math
 from functools import cached_property
 
 __all__ = ['ContinuousUniformDistribution',
-           'NormalDistribution',
+           'StandardNormalDistribution',
            'ExponentialDistribution',
            'ChiSquareDistribution',
            'StudentDistribution']
@@ -58,7 +58,7 @@ class ContinuousUniformDistribution(ContinuousDistribution):
         return ((self._b - self._a)**2) / 12
 
 
-class NormalDistribution(ContinuousDistribution):
+class StandardNormalDistribution(ContinuousDistribution):
     class Algorithm(Enum):
         box_muller = 1
         central_limit_theorem = 2
@@ -67,12 +67,8 @@ class NormalDistribution(ContinuousDistribution):
     def default_algorithm(self) -> Algorithm:
         return self.Algorithm.box_muller
 
-    _m: float
-    _σ: float
-
-    def __init__(self, m: float, σ: float):
-        self._m = m
-        self._σ = σ
+    _µ: float = 0
+    _σ: float = 1
 
     def value(self, algorithm: Algorithm = default_algorithm) -> float:  # type: ignore
         if algorithm == self.Algorithm.central_limit_theorem:
@@ -81,8 +77,8 @@ class NormalDistribution(ContinuousDistribution):
             return math.sqrt(-2 * math.log(random.uniform())) * math.cos(2 * math.pi * random.uniform())
 
     @property
-    def m(self) -> float:
-        return self._m
+    def µ(self) -> float:
+        return self._µ
 
     @property
     def σ(self) -> float:
@@ -90,7 +86,7 @@ class NormalDistribution(ContinuousDistribution):
 
     @cached_property
     def E(self) -> float:
-        return self._m
+        return self._µ
 
     @cached_property
     def D(self) -> float:
@@ -141,7 +137,7 @@ class ChiSquareDistribution(ContinuousDistribution):
         self._n = n
 
     def value(self, algorithm: Algorithm = default_algorithm) -> float:  # type: ignore
-        return sum([random.uniform()**2 for _ in range(self._n)])
+        return sum([StandardNormalDistribution() for _ in range(self._n)])
 
     @property
     def n(self) -> int:
