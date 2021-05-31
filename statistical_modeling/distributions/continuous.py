@@ -1,4 +1,4 @@
-from .base import *
+from .base import Distribution, DistributionAlgorithm
 from abc import abstractmethod
 
 from numpy import random
@@ -18,7 +18,7 @@ class ContinuousDistribution(Distribution):
         pass
 
     @abstractmethod
-    def value(self, algorithm: Algorithm = 1) -> float:
+    def value(self, algorithm: Algorithm) -> float:
         pass
 
 

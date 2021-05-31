@@ -1,4 +1,4 @@
-from .base import *
+from .base import Distribution, DistributionAlgorithm
 from abc import abstractmethod
 from typing import Callable
 
