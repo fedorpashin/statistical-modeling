@@ -1,7 +1,9 @@
+# statistical-modeling
+
 **statistical-modeling** is a Python package that provides two main features:
 
-- Statistical analysis of numbers sample
-- Working with distribution laws
+- Statistical analysis of samples
+- Working with distributions
 
 ## Example
 
