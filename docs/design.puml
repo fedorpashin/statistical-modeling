@@ -1,0 +1,64 @@
+@startuml
+
+title Design
+
+note "An example with concrete classes" as subtitle
+
+interface Number
+
+class Int
+Number <|-- Int
+
+class Float
+Number <|-- Float
+
+interface Distribution
+
+class GeometricDistribution
+Distribution <|-- GeometricDistribution
+
+class RandomInt
+Int <|-- RandomInt
+RandomInt o--- Distribution
+RandomInt o--- DiscreteDistributionAlgorithm
+
+class RandomFloat
+Float <|-- RandomFloat
+RandomFloat o--- Distribution
+RandomFloat o--- ContinuousDistributionAlgorithm
+
+interface DistributionAlgorithm
+DistributionAlgorithm --> Distribution
+
+interface DiscreteDistributionAlgorithm
+DistributionAlgorithm <|-- DiscreteDistributionAlgorithm
+DiscreteDistributionAlgorithm -> Distribution
+
+interface ContinuousDistributionAlgorithm
+DistributionAlgorithm <|-- ContinuousDistributionAlgorithm
+Distribution <- ContinuousDistributionAlgorithm
+
+class GeometricDistributionAlgorithm
+DiscreteDistributionAlgorithm <|-- GeometricDistributionAlgorithm
+GeometricDistributionAlgorithm -> GeometricDistribution
+
+class Sample
+
+class RandomSample
+Sample <|--- RandomSample
+RandomSample o-- Distribution
+RandomSample o-- DistributionAlgorithm
+
+class GeometricDistributionVariance
+Float <|-- GeometricDistributionVariance
+GeometricDistributionVariance o-- GeometricDistribution
+
+class SampleVariance
+Float <|-- SampleVariance
+Sample --o SampleVariance
+
+class VarianceFactory
+VarianceFactory --> SampleVariance
+VarianceFactory --> GeometricDistributionVariance
+
+@enduml
