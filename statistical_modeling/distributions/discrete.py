@@ -63,11 +63,11 @@ class DiscreteUniformDistribution(DiscreteDistribution):
         return self._b - self._a + 1
 
     @cached_property
-    def E(self) -> float:
+    def Mean(self) -> float:
         return (self._a + self._b) / 2
 
     @cached_property
-    def D(self) -> float:
+    def Variance(self) -> float:
         return (self.n**2 - 1) / 12
 
 
@@ -123,11 +123,11 @@ class BinomialDistribution(DiscreteDistribution):
         return 1 - self._p
 
     @cached_property
-    def E(self) -> float:
+    def Mean(self) -> float:
         return self._n * self._p
 
     @cached_property
-    def D(self) -> float:
+    def Variance(self) -> float:
         return self._n * self._p * self._q
 
 
@@ -175,11 +175,11 @@ class GeometricDistribution(DiscreteDistribution):
         return 1 - self._p
 
     @cached_property
-    def E(self) -> float:
+    def Mean(self) -> float:
         return 1 / self._p
 
     @cached_property
-    def D(self) -> float:
+    def Variance(self) -> float:
         return self._q / self._p**2
 
 
@@ -232,11 +232,11 @@ class PoissonDistribution(DiscreteDistribution):
         return self._threshold
 
     @cached_property
-    def E(self) -> float:
+    def Mean(self) -> float:
         return self._μ
 
     @cached_property
-    def D(self) -> float:
+    def Variance(self) -> float:
         return self._μ
 
 
@@ -275,9 +275,9 @@ class LogarithmicDistribution(DiscreteDistribution):
         return 1 - self.q
 
     @cached_property
-    def E(self) -> float:
+    def Mean(self) -> float:
         return -self._α * self.q / self._p
 
     @cached_property
-    def D(self) -> float:
+    def Variance(self) -> float:
         return -self._α * self.q * (1 + self._α * self.q) / self._p**2
