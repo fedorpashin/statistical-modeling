@@ -20,16 +20,16 @@ class Sample:
 
     def k(self, f: int) -> float:
         assert f < self.n
-        return (sum([(self._x[i] - self.E) * (self._x[i + f] - self.E) for i in range(self.n - f)])
-                / sum([(self._x[i] - self.E)**2 for i in range(self.n)]))
+        return (sum([(self._x[i] - self.mean) * (self._x[i + f] - self.mean) for i in range(self.n - f)])
+                / sum([(self._x[i] - self.mean)**2 for i in range(self.n)]))
 
     @cached_property
-    def E(self) -> float:
+    def mean(self) -> float:
         return sum(self._x) / self.n
 
     @cached_property
-    def D(self) -> float:
-        return sum([(x_i - self.E)**2 for x_i in self._x]) / self.n
+    def variance(self) -> float:
+        return sum([(x_i - self.mean)**2 for x_i in self._x]) / self.n
 
     def plot_correlogram(self, ax) -> None:
         ax.plot(range(self.n), [self.k(f) for f in range(self.n)])

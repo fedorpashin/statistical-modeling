@@ -23,10 +23,10 @@ class Distribution(ABC):
 
     @cached_property
     @abstractmethod
-    def E(self) -> float:
+    def mean(self) -> float:
         pass
 
     @cached_property
     @abstractmethod
-    def D(self) -> float:
+    def variance(self) -> float:
         pass
