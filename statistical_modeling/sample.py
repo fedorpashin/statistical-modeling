@@ -1,5 +1,7 @@
 from functools import cached_property
 
+__all__ = ['Sample']
+
 
 class Sample:
     _x: list[float]
@@ -18,28 +20,68 @@ class Sample:
     def n(self):
         return len(self._x)
 
-    def k(self, f: int) -> float:
-        assert f < self.n
-        return (sum([(self._x[i] - self.mean) * (self._x[i + f] - self.mean) for i in range(self.n - f)])
-                / sum([(self._x[i] - self.mean)**2 for i in range(self.n)]))
+
+class Mean:
+    _sample: Sample
+
+    def __init__(self, sample: Sample):
+        self._sample = sample
 
     @cached_property
-    def mean(self) -> float:
-        return sum(self._x) / self.n
+    def _value(self) -> float:
+        x = self._sample.x
+        n = self._sample.n
+        return sum(x) / n
+
+
+class Variance:
+    _sample: Sample
+
+    def __init__(self, sample: Sample):
+        self._sample = sample
 
     @cached_property
-    def variance(self) -> float:
-        return sum([(x_i - self.mean)**2 for x_i in self._x]) / self.n
+    def _value(self) -> float:
+        x = self._sample.x
+        n = self._sample.n
+        mean = Mean(self._sample)._value
 
-    def plot_correlogram(self, ax) -> None:
-        ax.plot(range(self.n), [self.k(f) for f in range(self.n)])
+        return sum([(x_i - mean)**2 for x_i in x]) / n
 
-    def plot_pdf(self, ax) -> None:
-        ax.hist(self._x, bins=10, density=True)
-        ax.set_xlabel("x")
-        ax.set_ylabel("f(x)")
 
-    def plot_cdf(self, ax) -> None:
-        ax.hist(self._x, bins=1000, density=True, cumulative=True)
-        ax.set_xlabel("x")
-        ax.set_ylabel("F(x)")
+class ACF:
+    _sample: Sample
+    _f: int
+
+    def __init__(self, sample: Sample, f: int):
+        self._sample = sample
+        self._f = f
+
+    @cached_property
+    def _value(self) -> float:
+        x = self._sample.x
+        n = self._sample.n
+        f = self._f
+        mean = Mean(self._sample)._value
+        assert f < n
+        return (sum([(x[i] - mean) * (x[i + f] - mean) for i in range(n - f)])
+                / sum([(x[i] - mean)**2 for i in range(n)]))
+
+
+def plot_correlogram(sample: Sample, ax) -> None:
+    n = sample.n
+    ax.plot(range(n), [ACF(sample, f) for f in range(n)])
+
+
+def plot_pdf(sample: Sample, ax) -> None:
+    x = sample.x
+    ax.hist(x, bins=10, density=True)
+    ax.set_xlabel("x")
+    ax.set_ylabel("f(x)")
+
+
+def plot_cdf(sample: Sample, ax) -> None:
+    x = sample.x
+    ax.hist(x, bins=1000, density=True, cumulative=True)
+    ax.set_xlabel("x")
+    ax.set_ylabel("F(x)")

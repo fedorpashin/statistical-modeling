@@ -1,0 +1,2 @@
+class Variance(float):
+    pass
