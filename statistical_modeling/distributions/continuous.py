@@ -48,11 +48,11 @@ class ContinuousUniformDistribution(ContinuousDistribution):
         return self._b
 
     @cached_property
-    def Mean(self) -> float:
+    def E(self) -> float:
         return (self._a + self._b) / 2
 
     @cached_property
-    def Variance(self) -> float:
+    def D(self) -> float:
         return ((self._b - self._a)**2) / 12
 
 
@@ -81,11 +81,11 @@ class StandardNormalDistribution(ContinuousDistribution):
         return self._σ
 
     @cached_property
-    def Mean(self) -> float:
+    def E(self) -> float:
         return self._µ
 
     @cached_property
-    def Variance(self) -> float:
+    def D(self) -> float:
         return self._σ**2
 
 
@@ -108,11 +108,11 @@ class ExponentialDistribution(ContinuousDistribution):
         return self._β
 
     @cached_property
-    def Mean(self) -> float:
+    def E(self) -> float:
         return self._β
 
     @cached_property
-    def Variance(self) -> float:
+    def D(self) -> float:
         return self._β**2
 
 
@@ -136,11 +136,11 @@ class ChiSquareDistribution(ContinuousDistribution):
         return self._n
 
     @cached_property
-    def Mean(self) -> float:
+    def E(self) -> float:
         return self._n
 
     @cached_property
-    def Variance(self) -> float:
+    def D(self) -> float:
         return 2 * self._n
 
 
@@ -160,11 +160,11 @@ class StudentDistribution(ContinuousDistribution):
         return random.uniform() / math.sqrt(random.chisquare(self._n) / self._n)
 
     @cached_property
-    def Mean(self) -> float:
+    def E(self) -> float:
         return 0
 
     @cached_property
-    def Variance(self) -> float:
+    def D(self) -> float:
         if self._n > 2:
             return self._n / (self._n - 2)
         else:
