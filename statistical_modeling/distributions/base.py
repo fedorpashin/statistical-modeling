@@ -1,32 +1,53 @@
-from statistical_modeling.sample import Sample
 from abc import ABC, abstractmethod
-from enum import Enum
+from typing import TypeVar, Generic
 
-from functools import cached_property
+__all__ = ['Distribution',
+           'DiscreteDistribution',
+           'ContinuousDistribution',
+           'DistributionAlgorithm',
+           'DiscreteDistributionAlgorithm',
+           'ContinuousDistributionAlgorithm']
 
 
 class Distribution(ABC):
-    class Algorithm(Enum):
-        pass
+    pass
 
-    @property
+
+class DiscreteDistribution(Distribution):
+    pass
+
+
+class ContinuousDistribution(Distribution):
+    pass
+
+
+T = TypeVar('T')
+U = TypeVar('U')
+
+
+class DistributionAlgorithm(ABC, Generic[T]):
+    @classmethod
     @abstractmethod
-    def default_algorithm(self) -> Algorithm:
+    def default(cls, distribution: T) -> 'DistributionAlgorithm'[T]:
         pass
 
+
+class DiscreteDistributionAlgorithm(DistributionAlgorithm[T], Generic[T]):
     @abstractmethod
-    def value(self, algorithm: Algorithm) -> float:
+    def value(self, distribution: T) -> int:
         pass
 
-    def sample(self, n: int, algorithm: Algorithm = default_algorithm) -> Sample:  # type: ignore
-        return Sample([self.value(algorithm) for _ in range(n)])
 
-    @cached_property
+class ContinuousDistributionAlgorithm(DistributionAlgorithm[T], Generic[T]):
     @abstractmethod
-    def mean(self) -> float:
+    def value(self, distribution: T) -> float:
         pass
 
-    @cached_property
-    @abstractmethod
-    def variance(self) -> float:
-        pass
+
+# @todo #6:120min Implement factory classes for quantities
+
+
+# @todo #6:120min Make appropriate classes derived from a number class (int or float)
+
+
+# @todo #6:30min Modify README

@@ -1,0 +1,2 @@
+class Mean(float):
+    pass
