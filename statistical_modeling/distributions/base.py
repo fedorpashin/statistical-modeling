@@ -46,8 +46,6 @@ class ContinuousDistributionAlgorithm(DistributionAlgorithm[T], Generic[T]):
 
 # @todo #6:120min Implement factory classes for quantities
 
-
 # @todo #6:120min Make appropriate classes derived from a number class (int or float)
-
 
 # @todo #6:30min Modify README
