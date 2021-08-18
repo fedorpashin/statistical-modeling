@@ -1,4 +1,4 @@
-from .base import DiscreteDistribution, DiscreteDistributionAlgorithm
+from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
 from abc import abstractmethod
 
 from .cumulative import cumulative
@@ -52,23 +52,29 @@ class CumulativeAlgorithm(Algorithm):
         return cumulative(p_of, x=1)
 
 
-class Mean:
+class Mean(DistributionMean):
     __distribution: Distribution
 
-    @cached_property
-    def __value(self) -> float:
-        α = self.__distribution.α
-        p = self.__distribution.p
-        q = self.__distribution.q
+    def __new__(cls, distribution: Distribution) -> 'Mean':
+        return super().__new__(cls, cls.__value(distribution))
+
+    @staticmethod
+    def __value(distribution: Distribution) -> float:
+        α = distribution.α
+        p = distribution.p
+        q = distribution.q
         return -α * q / p
 
 
-class Variance:
+class Variance(DistributionVariance):
     __distribution: Distribution
 
-    @cached_property
-    def __value(self) -> float:
-        α = self.__distribution.α
-        p = self.__distribution.p
-        q = self.__distribution.q
+    def __new__(cls, distribution: Distribution) -> 'Variance':
+        return super().__new__(cls, cls.__value(distribution))
+
+    @staticmethod
+    def __value(distribution: Distribution) -> float:
+        α = distribution.α
+        p = distribution.p
+        q = distribution.q
         return -α * q * (1 + α * q) / p**2

@@ -1,13 +1,14 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
-from multimethod import multimeta
 
 __all__ = ['Distribution',
            'DiscreteDistribution',
            'ContinuousDistribution',
            'DistributionAlgorithm',
            'DiscreteDistributionAlgorithm',
-           'ContinuousDistributionAlgorithm']
+           'ContinuousDistributionAlgorithm',
+           'DistributionMean',
+           'DistributionVariance']
 
 
 class Distribution(ABC):
@@ -45,9 +46,39 @@ class ContinuousDistributionAlgorithm(DistributionAlgorithm[T], Generic[T]):
         pass
 
 
-# @todo #6:120min Implement factory classes for quantities
+class DistributionMean(ABC, float):
+    __distribution: Distribution
 
-# @todo #6:120min Make appropriate classes derived from a number class (int or float)
+    def __init__(self, distribution: Distribution):
+        self.__distribution = distribution
+
+    @staticmethod
+    @abstractmethod
+    def __value(distribution: Distribution) -> float:
+        pass
+
+    @property
+    def distribution(self) -> Distribution:
+        return self.__distribution
+
+
+class DistributionVariance(ABC, float):
+    __distribution: Distribution
+
+    def __init__(self, distribution: Distribution):
+        self.__distribution = distribution
+
+    @staticmethod
+    @abstractmethod
+    def __value(distribution: Distribution) -> float:
+        pass
+
+    @property
+    def distribution(self) -> Distribution:
+        return self.__distribution
+
+
+# @todo #6:120min Implement factory classes for quantities
 
 # @todo #6:30min Modify README
 
