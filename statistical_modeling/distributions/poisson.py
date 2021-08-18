@@ -23,14 +23,14 @@ class Distribution(DiscreteDistribution):
 
 @has_multimethods
 class Algorithm(DiscreteDistributionAlgorithm['Algorithm']):
-    @classmethod
+    @staticmethod
     @multimethod()
-    def default(cls, distribution: Distribution) -> 'Algorithm':
-        return cls.default(88)
+    def default(distribution: Distribution) -> 'Algorithm':
+        return Algorithm.default(88)
 
-    @classmethod # noqa
+    @staticmethod # noqa
     @default.register(Distribution, int)
-    def default(cls, distribution: Distribution, threshold: int) -> 'Algorithm':
+    def default(distribution: Distribution, threshold: int) -> 'Algorithm':
         µ = distribution.µ
         if µ < threshold:
             return CumulativeAlgorithm()

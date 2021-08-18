@@ -20,8 +20,8 @@ class Distribution(ContinuousDistribution):
 
 
 class Algorithm(ContinuousDistributionAlgorithm['Algorithm']):
-    @classmethod
-    def default(cls, distribution: Distribution) -> 'Algorithm':
+    @staticmethod
+    def default(distribution: Distribution) -> 'Algorithm':
         return StandardAlgorithm()
 
     @abstractmethod

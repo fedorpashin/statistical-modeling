@@ -23,8 +23,8 @@ class Algorithm(ContinuousDistributionAlgorithm['Algorithm']):
     def value(self, distribution: Distribution) -> float:
         pass
 
-    @classmethod
-    def default(cls, distribution: Distribution) -> 'Algorithm':
+    @staticmethod
+    def default(distribution: Distribution) -> 'Algorithm':
         return StandardAlgorithm()
 
 
