@@ -1,6 +1,5 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm
 from abc import abstractmethod
-from generic.multimethod import has_multimethods, multimethod
 
 from .cumulative import cumulative
 from math import exp
@@ -21,18 +20,10 @@ class Distribution(DiscreteDistribution):
         return self.__μ
 
 
-@has_multimethods
 class Algorithm(DiscreteDistributionAlgorithm['Algorithm']):
-    @classmethod
-    @multimethod()
-    def default(cls, distribution: Distribution) -> 'Algorithm':
-        return cls.default(88)
-
-    @classmethod # noqa
-    @default.register(Distribution, int)
-    def default(cls, distribution: Distribution, threshold: int) -> 'Algorithm':
-        µ = distribution.µ
-        if µ < threshold:
+    @staticmethod
+    def default(distribution: Distribution, threshold: int = 88) -> 'Algorithm':
+        if distribution.µ < threshold:
             return CumulativeAlgorithm()
         else:
             return NormalApproximationAlgorithm()

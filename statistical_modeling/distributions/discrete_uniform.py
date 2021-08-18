@@ -29,8 +29,8 @@ class Distribution(DiscreteDistribution):
 
 
 class Algorithm(DiscreteDistributionAlgorithm):
-    @classmethod
-    def default(cls, distribution: Distribution) -> 'Algorithm':
+    @staticmethod
+    def default(distribution: Distribution) -> 'Algorithm':
         pass
 
     @abstractmethod

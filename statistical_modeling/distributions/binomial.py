@@ -1,6 +1,5 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm
 from abc import abstractmethod
-from generic.multimethod import has_multimethods, multimethod
 
 from .cumulative import cumulative
 from math import sqrt
@@ -32,17 +31,10 @@ class Distribution(DiscreteDistribution):
         return 1 - self.p
 
 
-@has_multimethods
 class Algorithm(DiscreteDistributionAlgorithm['Algorithm']):
-    @classmethod
-    @multimethod()
-    def default(cls) -> 'Algorithm':
-        return cls.default(100)
-
-    @classmethod # noqa
-    @default.register(int)
-    def default(cls, threshold: int) -> 'Algorithm':
-        if threshold < 100:
+    @staticmethod
+    def default(distribution: Distribution, threshold: int = 100) -> 'Algorithm':
+        if distribution.n < threshold:
             return CumulativeAlgorithm()
         else:
             return NormalApproximationAlgorithm()

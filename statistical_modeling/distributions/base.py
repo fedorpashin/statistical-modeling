@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
+from multimethod import multimeta
 
 __all__ = ['Distribution',
            'DiscreteDistribution',
@@ -26,9 +27,9 @@ U = TypeVar('U')
 
 
 class DistributionAlgorithm(ABC, Generic[T]):
-    @classmethod
+    @staticmethod
     @abstractmethod
-    def default(cls, distribution: T) -> 'DistributionAlgorithm'[T]:
+    def default(distribution: T) -> 'DistributionAlgorithm[T]':
         pass
 
 
@@ -46,8 +47,8 @@ class ContinuousDistributionAlgorithm(DistributionAlgorithm[T], Generic[T]):
 
 # @todo #6:120min Implement factory classes for quantities
 
-
 # @todo #6:120min Make appropriate classes derived from a number class (int or float)
 
-
 # @todo #6:30min Modify README
+
+# @todo #22:15min Make Algorithm classes abstract
