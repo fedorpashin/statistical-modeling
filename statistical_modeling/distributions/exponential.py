@@ -8,14 +8,14 @@ from functools import cached_property
 
 
 class Distribution(ContinuousDistribution):
-    _β: float
+    __β: float
 
     def __init__(self, β: float):
-        self._β = β
+        self.__β = β
 
     @property
     def β(self) -> float:
-        return self._β
+        return self.__β
 
 
 class Algorithm(ContinuousDistributionAlgorithm['Algorithm']):
@@ -35,18 +35,18 @@ class StandardAlgorithm(Algorithm):
 
 
 class Mean:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
     def Mean(self) -> float:
-        β = self.distribution.β
+        β = self.__distribution.β
         return β
 
 
 class Variance:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
     def Variance(self) -> float:
-        β = self.distribution.β
+        β = self.__distribution.β
         return β**2

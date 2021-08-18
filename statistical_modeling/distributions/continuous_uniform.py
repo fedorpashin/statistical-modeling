@@ -7,20 +7,20 @@ from functools import cached_property
 
 
 class Distribution(ContinuousDistribution):
-    _a: int
-    _b: int
+    __a: int
+    __b: int
 
     def __init__(self, a: int = 0, b: int = 1):
-        self._a = a
-        self._b = b
+        self.__a = a
+        self.__b = b
 
     @property
     def a(self) -> int:
-        return self._a
+        return self.__a
 
     @property
     def b(self) -> int:
-        return self._b
+        return self.__b
 
 
 class Algorithm(ContinuousDistributionAlgorithm['Algorithm']):
@@ -41,20 +41,20 @@ class StandardAlgorithm(Algorithm):
 
 
 class Mean:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
-    def _value(self) -> float:
-        a = self.distribution.a
-        b = self.distribution.b
+    def __value(self) -> float:
+        a = self.__distribution.a
+        b = self.__distribution.b
         return (a + b) / 2
 
 
 class Variance:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
-    def _value(self) -> float:
-        a = self.distribution.a
-        b = self.distribution.b
+    def __value(self) -> float:
+        a = self.__distribution.a
+        b = self.__distribution.b
         return ((b - a)**2) / 12

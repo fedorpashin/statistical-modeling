@@ -4,65 +4,65 @@ __all__ = ['Sample']
 
 
 class Sample:
-    _x: list[float]
+    __x: list[float]
 
     def __init__(self, x: list[float]):
-        self._x = x
+        self.__x = x
 
     def __str__(self) -> str:
-        return str(self._x)
+        return str(self.__x)
 
     @property
     def x(self):
-        return self._x
+        return self.__x
 
     @cached_property
     def n(self):
-        return len(self._x)
+        return len(self.__x)
 
 
 class Mean:
-    _sample: Sample
+    __sample: Sample
 
     def __init__(self, sample: Sample):
-        self._sample = sample
+        self.__sample = sample
 
     @cached_property
-    def _value(self) -> float:
-        x = self._sample.x
-        n = self._sample.n
+    def __value(self) -> float:
+        x = self.__sample.x
+        n = self.__sample.n
         return sum(x) / n
 
 
 class Variance:
-    _sample: Sample
+    __sample: Sample
 
     def __init__(self, sample: Sample):
-        self._sample = sample
+        self.__sample = sample
 
     @cached_property
-    def _value(self) -> float:
-        x = self._sample.x
-        n = self._sample.n
-        mean = Mean(self._sample)._value
+    def __value(self) -> float:
+        x = self.__sample.x
+        n = self.__sample.n
+        mean = Mean(self.__sample).__value
 
         return sum([(x_i - mean)**2 for x_i in x]) / n
 
 
 class ACF:
-    _sample: Sample
-    _f: int
+    __sample: Sample
+    __f: int
 
     def __init__(self, sample: Sample, f: int):
-        self._sample = sample
-        self._f = f
+        self.__sample = sample
+        self.__f = f
 
     @cached_property
-    def _value(self) -> float:
-        x = self._sample.x
-        n = self._sample.n
-        f = self._f
-        mean = Mean(self._sample)._value
+    def __value(self) -> float:
+        x = self.__sample.x
+        n = self.__sample.n
+        f = self.__f
+        mean = Mean(self.__sample).__value
         assert f < n
         return (sum([(x[i] - mean) * (x[i + f] - mean) for i in range(n - f)])
                 / sum([(x[i] - mean)**2 for i in range(n)]))
