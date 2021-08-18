@@ -89,7 +89,7 @@ class ACF(float):
         x = sample.x
         n = sample.n
         mean = SampleMean(sample)
-        assert f < n
+        assert f <= n
         return (sum([(x[i] - mean) * (x[i + f] - mean) for i in range(n - f)])
                 / sum([(x[i] - mean)**2 for i in range(n)]))
 
