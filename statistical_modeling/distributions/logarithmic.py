@@ -8,11 +8,11 @@ from functools import cached_property, lru_cache
 
 
 class Distribution(DiscreteDistribution):
-    _q: float
+    __q: float
 
     def __init__(self, q: float):
         assert 0 <= q <= 1
-        self._q = q
+        self.__q = q
 
     @cached_property
     def p(self) -> float:
@@ -20,7 +20,7 @@ class Distribution(DiscreteDistribution):
 
     @property
     def q(self) -> float:
-        return self._q
+        return self.__q
 
     @cached_property
     def α(self) -> float:
@@ -53,22 +53,22 @@ class CumulativeAlgorithm(Algorithm):
 
 
 class Mean:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
-    def _value(self) -> float:
-        α = self.distribution.α
-        p = self.distribution.p
-        q = self.distribution.q
+    def __value(self) -> float:
+        α = self.__distribution.α
+        p = self.__distribution.p
+        q = self.__distribution.q
         return -α * q / p
 
 
 class Variance:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
-    def _value(self) -> float:
-        α = self.distribution.α
-        p = self.distribution.p
-        q = self.distribution.q
+    def __value(self) -> float:
+        α = self.__distribution.α
+        p = self.__distribution.p
+        q = self.__distribution.q
         return -α * q * (1 + α * q) / p**2

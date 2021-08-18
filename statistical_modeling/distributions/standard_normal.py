@@ -8,16 +8,16 @@ from functools import cached_property
 
 
 class Distribution(ContinuousDistribution):
-    _µ: float = 0
-    _σ: float = 1
+    __μ: float = 0
+    __σ: float = 1
 
     @property
     def µ(self) -> float:
-        return self._µ
+        return self.__μ
 
     @property
     def σ(self) -> float:
-        return self._σ
+        return self.__σ
 
 
 class Algorithm(ContinuousDistributionAlgorithm):
@@ -41,18 +41,18 @@ class CentralLimitTheoremAlgorithm(Algorithm):
 
 
 class Mean:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
-    def _value(self) -> float:
-        µ = self.distribution.µ
+    def __value(self) -> float:
+        µ = self.__distribution.µ
         return µ
 
 
 class Variance:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
-    def _value(self) -> float:
-        σ = self.distribution.σ
+    def __value(self) -> float:
+        σ = self.__distribution.σ
         return σ**2

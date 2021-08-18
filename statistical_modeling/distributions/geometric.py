@@ -9,15 +9,15 @@ from functools import cached_property, lru_cache
 
 
 class Distribution(DiscreteDistribution):
-    _p: float
+    __p: float
 
     def __init__(self, p: float):
         assert 0 <= p <= 1
-        self._p = p
+        self.__p = p
 
     @property
     def p(self) -> float:
-        return self._p
+        return self.__p
 
     @cached_property
     def q(self) -> float:
@@ -66,19 +66,19 @@ class ImprovedCumulativeAlgorithm(Algorithm):
 
 
 class Mean:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
-    def _value(self) -> float:
-        p = self.distribution.p
+    def __value(self) -> float:
+        p = self.__distribution.p
         return 1 / p
 
 
 class Variance:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
-    def _value(self) -> float:
-        p = self.distribution.p
-        q = self.distribution.q
+    def __value(self) -> float:
+        p = self.__distribution.p
+        q = self.__distribution.q
         return q / p**2

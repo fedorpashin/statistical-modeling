@@ -10,22 +10,22 @@ from functools import cached_property, lru_cache
 
 
 class Distribution(DiscreteDistribution):
-    _n: int
-    _p: float
+    __n: int
+    __p: float
 
     def __init__(self, n: int, p: float):
         assert n > 0
         assert 0 <= p <= 1
-        self._n = n
-        self._p = p
+        self.__n = n
+        self.__p = p
 
     @property
     def n(self) -> int:
-        return self._n
+        return self.__n
 
     @property
     def p(self) -> float:
-        return self._p
+        return self.__p
 
     @cached_property
     def q(self) -> float:
@@ -77,21 +77,21 @@ class NormalApproximationAlgorithm(Algorithm):
 
 
 class Mean:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
-    def _value(self) -> float:
-        n = self.distribution.p
-        p = self.distribution.p
+    def __value(self) -> float:
+        n = self.__distribution.p
+        p = self.__distribution.p
         return n * p
 
 
 class Variance:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
-    def _value(self) -> float:
-        n = self.distribution.p
-        p = self.distribution.p
-        q = self.distribution.q
+    def __value(self) -> float:
+        n = self.__distribution.p
+        p = self.__distribution.p
+        q = self.__distribution.q
         return n * p * q

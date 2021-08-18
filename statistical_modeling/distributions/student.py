@@ -8,15 +8,15 @@ from functools import cached_property
 
 
 class Distribution(ContinuousDistribution):
-    _n: float
+    __n: float
 
     def __init__(self, n: int):
         assert n > 0
-        self._n = n
+        self.__n = n
 
     @property
     def n(self) -> float:
-        return self._n
+        return self.__n
 
 
 class Algorithm(ContinuousDistributionAlgorithm['Algorithm']):
@@ -36,19 +36,19 @@ class StandardAlgorithm(Algorithm):
 
 
 class Mean:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
-    def _value(self) -> float:
+    def __value(self) -> float:
         return 0
 
 
 class Variance:
-    distribution: Distribution
+    __distribution: Distribution
 
     @cached_property
-    def _value(self) -> float:
-        n = self.distribution.n
+    def __value(self) -> float:
+        n = self.__distribution.n
         if n > 2:
             return n / (n - 2)
         else:
