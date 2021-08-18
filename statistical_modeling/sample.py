@@ -1,6 +1,9 @@
 from functools import cached_property
 
-__all__ = ['Sample']
+__all__ = ['Sample',
+           'SampleMean',
+           'SampleVariance',
+           'ACF']
 
 
 class Sample:
@@ -21,48 +24,71 @@ class Sample:
         return len(self.__x)
 
 
-class Mean:
+class SampleMean(float):
     __sample: Sample
+
+    def __new__(cls, sample: Sample) -> 'SampleMean':
+        return super().__new__(cls, cls.__value(sample))
 
     def __init__(self, sample: Sample):
         self.__sample = sample
 
-    @cached_property
-    def __value(self) -> float:
-        x = self.__sample.x
-        n = self.__sample.n
+    @property
+    def sample(self):
+        return self.__sample
+
+    @staticmethod
+    def __value(sample: Sample) -> float:
+        x = sample.x
+        n = sample.n
         return sum(x) / n
 
 
-class Variance:
+class SampleVariance(float):
     __sample: Sample
+
+    def __new__(cls, sample: Sample) -> 'SampleVariance':
+        return super().__new__(cls, cls.__value(sample))
 
     def __init__(self, sample: Sample):
         self.__sample = sample
 
-    @cached_property
-    def __value(self) -> float:
-        x = self.__sample.x
-        n = self.__sample.n
-        mean = Mean(self.__sample).__value
+    @property
+    def sample(self):
+        return self.__sample
 
+    @staticmethod
+    def __value(sample: Sample) -> float:
+        x = sample.x
+        n = sample.n
+        mean = SampleMean(sample)
         return sum([(x_i - mean)**2 for x_i in x]) / n
 
 
-class ACF:
+class ACF(float):
     __sample: Sample
     __f: int
+
+    def __new__(cls, sample: Sample, f: int) -> 'ACF':
+        return super().__new__(cls, cls.__value(sample, f))
 
     def __init__(self, sample: Sample, f: int):
         self.__sample = sample
         self.__f = f
 
-    @cached_property
-    def __value(self) -> float:
-        x = self.__sample.x
-        n = self.__sample.n
-        f = self.__f
-        mean = Mean(self.__sample).__value
+    @property
+    def sample(self):
+        return self.__sample
+
+    @property
+    def f(self):
+        return self.__f
+
+    @staticmethod
+    def __value(sample: Sample, f: int) -> float:
+        x = sample.x
+        n = sample.n
+        mean = SampleMean(sample)
         assert f < n
         return (sum([(x[i] - mean) * (x[i + f] - mean) for i in range(n - f)])
                 / sum([(x[i] - mean)**2 for i in range(n)]))

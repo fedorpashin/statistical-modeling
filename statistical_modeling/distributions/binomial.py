@@ -1,4 +1,4 @@
-from .base import DiscreteDistribution, DiscreteDistributionAlgorithm
+from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
 from abc import abstractmethod
 
 from .cumulative import cumulative
@@ -68,22 +68,28 @@ class NormalApproximationAlgorithm(Algorithm):
         return round(random.normal(n * p, sqrt(n * p * q)) + 0.5)
 
 
-class Mean:
+class Mean(DistributionMean):
     __distribution: Distribution
 
-    @cached_property
-    def __value(self) -> float:
-        n = self.__distribution.p
-        p = self.__distribution.p
+    def __new__(cls, distribution: Distribution) -> 'Mean':
+        return super().__new__(cls, cls.__value(distribution))
+
+    @staticmethod
+    def __value(distribution: Distribution) -> float:
+        n = distribution.p
+        p = distribution.p
         return n * p
 
 
-class Variance:
+class Variance(DistributionVariance):
     __distribution: Distribution
 
-    @cached_property
-    def __value(self) -> float:
-        n = self.__distribution.p
-        p = self.__distribution.p
-        q = self.__distribution.q
+    def __new__(cls, distribution: Distribution) -> 'Variance':
+        return super().__new__(cls, cls.__value(distribution))
+
+    @staticmethod
+    def __value(distribution: Distribution) -> float:
+        n = distribution.p
+        p = distribution.p
+        q = distribution.q
         return n * p * q

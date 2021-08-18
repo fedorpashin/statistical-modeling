@@ -1,10 +1,8 @@
-from .base import ContinuousDistribution, ContinuousDistributionAlgorithm
+from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
 from abc import abstractmethod
 
 from math import sqrt, inf
 from numpy import random
-
-from functools import cached_property
 
 
 class Distribution(ContinuousDistribution):
@@ -35,20 +33,26 @@ class StandardAlgorithm(Algorithm):
         return random.uniform() / sqrt(random.chisquare(n) / n)
 
 
-class Mean:
+class Mean(DistributionMean):
     __distribution: Distribution
 
-    @cached_property
-    def __value(self) -> float:
+    def __new__(cls, distribution: Distribution) -> 'Mean':
+        return super().__new__(cls, cls.__value(distribution))
+
+    @staticmethod
+    def __value(distribution: Distribution) -> float:
         return 0
 
 
-class Variance:
+class Variance(DistributionVariance):
     __distribution: Distribution
 
-    @cached_property
-    def __value(self) -> float:
-        n = self.__distribution.n
+    def __new__(cls, distribution: Distribution) -> 'Variance':
+        return super().__new__(cls, cls.__value(distribution))
+
+    @staticmethod
+    def __value(distribution: Distribution) -> float:
+        n = distribution.n
         if n > 2:
             return n / (n - 2)
         else:

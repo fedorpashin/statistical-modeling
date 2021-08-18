@@ -1,10 +1,8 @@
-from .base import ContinuousDistribution, ContinuousDistributionAlgorithm
+from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
 from abc import abstractmethod
 
 from math import log
 from numpy import random
-
-from functools import cached_property
 
 
 class Distribution(ContinuousDistribution):
@@ -34,19 +32,25 @@ class StandardAlgorithm(Algorithm):
         return β * log(random.uniform())
 
 
-class Mean:
+class Mean(DistributionMean):
     __distribution: Distribution
 
-    @cached_property
-    def Mean(self) -> float:
-        β = self.__distribution.β
+    def __new__(cls, distribution: Distribution) -> 'Mean':
+        return super().__new__(cls, cls.__value(distribution))
+
+    @staticmethod
+    def __value(distribution: Distribution) -> float:
+        β = distribution.β
         return β
 
 
-class Variance:
+class Variance(DistributionVariance):
     __distribution: Distribution
 
-    @cached_property
-    def Variance(self) -> float:
-        β = self.__distribution.β
+    def __new__(cls, distribution: Distribution) -> 'Variance':
+        return super().__new__(cls, cls.__value(distribution))
+
+    @staticmethod
+    def __value(distribution: Distribution) -> float:
+        β = distribution.β
         return β**2

@@ -1,10 +1,8 @@
-from .base import ContinuousDistribution, ContinuousDistributionAlgorithm
+from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
 from abc import abstractmethod
 
 from math import sqrt, log, cos, pi
 from numpy import random
-
-from functools import cached_property
 
 
 class Distribution(ContinuousDistribution):
@@ -40,19 +38,25 @@ class CentralLimitTheoremAlgorithm(Algorithm):
         return sum([random.uniform() for _ in range(12)]) - 6
 
 
-class Mean:
+class Mean(DistributionMean):
     __distribution: Distribution
 
-    @cached_property
-    def __value(self) -> float:
-        µ = self.__distribution.µ
+    def __new__(cls, distribution: Distribution) -> 'Mean':
+        return super().__new__(cls, cls.__value(distribution))
+
+    @staticmethod
+    def __value(distribution: Distribution) -> float:
+        µ = distribution.µ
         return µ
 
 
-class Variance:
+class Variance(DistributionVariance):
     __distribution: Distribution
 
-    @cached_property
-    def __value(self) -> float:
-        σ = self.__distribution.σ
+    def __new__(cls, distribution: Distribution) -> 'Variance':
+        return super().__new__(cls, cls.__value(distribution))
+
+    @staticmethod
+    def __value(distribution: Distribution) -> float:
+        σ = distribution.σ
         return σ**2

@@ -1,4 +1,4 @@
-from .base import DiscreteDistribution, DiscreteDistributionAlgorithm
+from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
 from abc import abstractmethod
 
 from math import floor
@@ -46,20 +46,26 @@ class StandardAlgorithm(Algorithm):
         return floor(n * random.uniform() + a)
 
 
-class Mean(float):
-    distribution: Distribution
+class Mean(DistributionMean):
+    __distribution: Distribution
 
-    @cached_property
-    def __value(self) -> float:
-        a = self.__distribution.a
-        b = self.__distribution.b
+    def __new__(cls, distribution: Distribution) -> 'Mean':
+        return super().__new__(cls, cls.__value(distribution))
+
+    @staticmethod
+    def __value(distribution: Distribution) -> float:
+        a = distribution.a
+        b = distribution.b
         return (a + b) / 2
 
 
-class Variance(float):
-    distribution: Distribution
+class Variance(DistributionVariance):
+    __distribution: Distribution
 
-    @cached_property
-    def __value(self) -> float:
-        n = self.__distribution.n
+    def __new__(cls, distribution: Distribution) -> 'Variance':
+        return super().__new__(cls, cls.__value(distribution))
+
+    @staticmethod
+    def __value(distribution: Distribution) -> float:
+        n = distribution.n
         return (n**2 - 1) / 12
