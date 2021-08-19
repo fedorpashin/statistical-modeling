@@ -31,7 +31,7 @@ class Distribution(DiscreteDistribution):
         return 1 - self.p
 
 
-class Algorithm(DiscreteDistributionAlgorithm['Algorithm']):
+class Algorithm(DiscreteDistributionAlgorithm[Distribution]):
     @staticmethod
     def default(distribution: Distribution, threshold: int = 100) -> 'Algorithm':
         if distribution.n < threshold:

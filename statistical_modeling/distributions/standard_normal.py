@@ -18,7 +18,7 @@ class Distribution(ContinuousDistribution):
         return self.__σ
 
 
-class Algorithm(ContinuousDistributionAlgorithm):
+class Algorithm(ContinuousDistributionAlgorithm[Distribution]):
     @staticmethod
     def default(distribution: Distribution) -> 'Algorithm':
         return BoxMullerAlgorithm()

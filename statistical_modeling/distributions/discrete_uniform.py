@@ -28,7 +28,7 @@ class Distribution(DiscreteDistribution):
         return self.b - self.a + 1
 
 
-class Algorithm(DiscreteDistributionAlgorithm):
+class Algorithm(DiscreteDistributionAlgorithm[Distribution]):
     @staticmethod
     def default(distribution: Distribution) -> 'Algorithm':
         pass

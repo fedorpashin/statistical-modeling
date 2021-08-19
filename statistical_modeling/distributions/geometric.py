@@ -24,7 +24,7 @@ class Distribution(DiscreteDistribution):
         return 1 - self.p
 
 
-class Algorithm(DiscreteDistributionAlgorithm):
+class Algorithm(DiscreteDistributionAlgorithm[Distribution]):
     @staticmethod
     def default(distribution: Distribution) -> 'Algorithm':
         return CumulativeAlgorithm()

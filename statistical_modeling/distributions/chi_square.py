@@ -16,7 +16,7 @@ class Distribution(ContinuousDistribution):
         return self.__n
 
 
-class Algorithm(ContinuousDistributionAlgorithm['Algorithm']):
+class Algorithm(ContinuousDistributionAlgorithm[Distribution]):
     @staticmethod
     def default(distribution: Distribution) -> 'Algorithm':
         return StandardAlgorithm()

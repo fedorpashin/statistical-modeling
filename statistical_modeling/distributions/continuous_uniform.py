@@ -21,7 +21,7 @@ class Distribution(ContinuousDistribution):
         return self.__b
 
 
-class Algorithm(ContinuousDistributionAlgorithm['Algorithm']):
+class Algorithm(ContinuousDistributionAlgorithm[Distribution]):
     @abstractmethod
     def value(self, distribution: Distribution) -> float:
         pass

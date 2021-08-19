@@ -20,7 +20,7 @@ class Distribution(DiscreteDistribution):
         return self.__μ
 
 
-class Algorithm(DiscreteDistributionAlgorithm['Algorithm']):
+class Algorithm(DiscreteDistributionAlgorithm[Distribution]):
     @staticmethod
     def default(distribution: Distribution, threshold: int = 88) -> 'Algorithm':
         if distribution.µ < threshold:
