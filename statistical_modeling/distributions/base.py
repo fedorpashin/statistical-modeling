@@ -78,8 +78,6 @@ class DistributionVariance(ABC, float):
         return self.__distribution
 
 
-# @todo #6:120min Implement factory classes for quantities
-
 # @todo #6:30min Modify README
 
 # @todo #22:15min Make Algorithm classes abstract
