@@ -1,2 +1,6 @@
+from ..sample import Sample, SampleACF
+
+
 class ACF:
-    pass
+    def __new__(cls, sample: Sample, f: int):
+        return SampleACF(sample, f)

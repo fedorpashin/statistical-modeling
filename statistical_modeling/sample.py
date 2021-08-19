@@ -3,7 +3,7 @@ from functools import cached_property
 __all__ = ['Sample',
            'SampleMean',
            'SampleVariance',
-           'ACF']
+           'SampleACF']
 
 
 class Sample:
@@ -65,11 +65,11 @@ class SampleVariance(float):
         return sum([(x_i - mean)**2 for x_i in x]) / n
 
 
-class ACF(float):
+class SampleACF(float):
     __sample: Sample
     __f: int
 
-    def __new__(cls, sample: Sample, f: int) -> 'ACF':
+    def __new__(cls, sample: Sample, f: int) -> 'SampleACF':
         return super().__new__(cls, cls.__value(sample, f))
 
     def __init__(self, sample: Sample, f: int):
@@ -96,7 +96,7 @@ class ACF(float):
 
 def plot_correlogram(sample: Sample, ax) -> None:
     n = sample.n
-    ax.plot(range(n), [ACF(sample, f) for f in range(n)])
+    ax.plot(range(n), [SampleACF(sample, f) for f in range(n)])
 
 
 def plot_pdf(sample: Sample, ax) -> None:
