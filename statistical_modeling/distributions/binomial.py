@@ -76,7 +76,7 @@ class Mean(DistributionMean):
 
     @staticmethod
     def __value(distribution: Distribution) -> float:
-        n = distribution.p
+        n = distribution.n
         p = distribution.p
         return n * p
 
@@ -89,7 +89,7 @@ class Variance(DistributionVariance):
 
     @staticmethod
     def __value(distribution: Distribution) -> float:
-        n = distribution.p
+        n = distribution.n
         p = distribution.p
         q = distribution.q
         return n * p * q
