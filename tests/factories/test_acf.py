@@ -10,7 +10,7 @@ class TestACF(unittest.TestCase):
     def test(self):
         s: Final = sm.Sample([1, 2, 3])
         f: Final = 3
-        assert_equal(
+        self.assertEqual(
             sm.ACF(s, f),
             sm.SampleACF(s, f)
         )
