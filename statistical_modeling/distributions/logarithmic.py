@@ -1,4 +1,5 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
+from dataclasses import dataclass
 
 from .cumulative import cumulative
 from math import log
@@ -6,20 +7,16 @@ from math import log
 from functools import cached_property, lru_cache
 
 
+@dataclass(frozen=True)
 class Distribution(DiscreteDistribution):
-    __q: float
+    q: float
 
-    def __init__(self, q: float):
-        assert 0 <= q <= 1
-        self.__q = q
+    def __post__init__(self):
+        assert 0 <= self.q <= 1
 
     @cached_property
     def p(self) -> float:
         return 1 - self.q
-
-    @property
-    def q(self) -> float:
-        return self.__q
 
     @cached_property
     def α(self) -> float:

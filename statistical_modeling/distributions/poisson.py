@@ -1,4 +1,5 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
+from dataclasses import dataclass
 
 from .cumulative import cumulative
 from math import exp
@@ -7,16 +8,12 @@ from numpy import random
 from functools import lru_cache
 
 
+@dataclass(frozen=True)
 class Distribution(DiscreteDistribution):
-    __μ: float
+    μ: float
 
-    def __init__(self, μ: float):
-        assert μ > 0
-        self.__μ = μ
-
-    @property
-    def µ(self) -> float:
-        return self.__μ
+    def __post_init__(self):
+        assert self.μ > 0
 
 
 class Algorithm(DiscreteDistributionAlgorithm[Distribution]):

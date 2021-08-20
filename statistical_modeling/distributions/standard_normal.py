@@ -1,20 +1,14 @@
 from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
+from dataclasses import dataclass
 
 from math import sqrt, log, cos, pi
 from numpy import random
 
 
+@dataclass(frozen=True, init=False)
 class Distribution(ContinuousDistribution):
-    __μ: float = 0
-    __σ: float = 1
-
-    @property
-    def µ(self) -> float:
-        return self.__μ
-
-    @property
-    def σ(self) -> float:
-        return self.__σ
+    μ: float = 0
+    σ: float = 1
 
 
 class Algorithm(ContinuousDistributionAlgorithm[Distribution]):
