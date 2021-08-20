@@ -1,4 +1,4 @@
-from statistical_modeling import DiscreteDistribution, DiscreteDistributionAlgorithm, DefaultAlgorithm
+from . import DiscreteDistribution, DiscreteDistributionAlgorithm, DefaultAlgorithm
 from typing import TypeVar
 
 T = TypeVar('T', bound=DiscreteDistribution)

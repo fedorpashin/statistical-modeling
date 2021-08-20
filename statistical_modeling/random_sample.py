@@ -1,5 +1,5 @@
 from .sample import AnySample
-from statistical_modeling import Distribution, DistributionAlgorithm, DefaultAlgorithm
+from . import Distribution, DistributionAlgorithm, DefaultAlgorithm
 from typing import TypeVar
 
 from functools import cached_property
