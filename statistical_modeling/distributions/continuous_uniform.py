@@ -1,23 +1,16 @@
 from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
+from dataclasses import dataclass
 
 from numpy import random
 
 
+@dataclass(frozen=True)
 class Distribution(ContinuousDistribution):
-    __a: int
-    __b: int
+    a: int = 0
+    b: int = 1
 
-    def __init__(self, a: int = 0, b: int = 1):
-        self.__a = a
-        self.__b = b
-
-    @property
-    def a(self) -> int:
-        return self.__a
-
-    @property
-    def b(self) -> int:
-        return self.__b
+    def __post_init__(self):
+        assert self.a < self.b
 
 
 class Algorithm(ContinuousDistributionAlgorithm[Distribution]):

@@ -1,4 +1,5 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
+from dataclasses import dataclass
 
 from math import floor
 from numpy import random
@@ -6,21 +7,13 @@ from numpy import random
 from functools import cached_property
 
 
+@dataclass(frozen=True)
 class Distribution(DiscreteDistribution):
-    __a: int
-    __b: int
+    a: int
+    b: int
 
-    def __init__(self, a: int, b: int):
-        self.__a = a
-        self.__b = b
-
-    @property
-    def a(self) -> int:
-        return self.__a
-
-    @property
-    def b(self) -> int:
-        return self.__b
+    def __post__init__(self):
+        assert self.a < self.b
 
     @cached_property
     def n(self) -> int:
