@@ -6,6 +6,7 @@ from .factories.default_algorithm import DefaultAlgorithm
 from .factories.acf import ACF
 from .random_float import RandomFloat
 from .random_int import RandomInt
+from .random_sample import RandomSample
 
 from .distributions import (binomial,
                             chi_square,
