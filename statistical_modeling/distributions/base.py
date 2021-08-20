@@ -65,8 +65,3 @@ class DistributionVariance(ABC, float):
     @property
     def distribution(self) -> Distribution:
         return self.__distribution
-
-
-# @todo #6:30min Modify README
-
-# @todo #22:15min Make Algorithm classes abstract

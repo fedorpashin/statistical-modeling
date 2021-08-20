@@ -7,7 +7,10 @@ __all__ = ['AnySample',
            'Sample',
            'SampleMean',
            'SampleVariance',
-           'SampleACF']
+           'SampleACF',
+           'plot_correlogram',
+           'plot_pdf',
+           'plot_cdf']
 
 
 class AnySample(ABC):
@@ -109,19 +112,19 @@ class SampleACF(float):
                 / sum([(x[i] - mean)**2 for i in range(n)]))
 
 
-def plot_correlogram(sample: Sample, ax) -> None:
+def plot_correlogram(sample: AnySample, ax) -> None:
     n = sample.n
     ax.plot(range(n), [SampleACF(sample, f) for f in range(n)])
 
 
-def plot_pdf(sample: Sample, ax) -> None:
+def plot_pdf(sample: AnySample, ax) -> None:
     x = sample.x
     ax.hist(x, bins=10, density=True)
     ax.set_xlabel("x")
     ax.set_ylabel("f(x)")
 
 
-def plot_cdf(sample: Sample, ax) -> None:
+def plot_cdf(sample: AnySample, ax) -> None:
     x = sample.x
     ax.hist(x, bins=1000, density=True, cumulative=True)
     ax.set_xlabel("x")

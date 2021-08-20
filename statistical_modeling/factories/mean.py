@@ -1,4 +1,4 @@
-from ..sample import Sample, SampleMean
+from ..sample import AnySample, SampleMean
 from ..distributions import (binomial,
                              chi_square,
                              continuous_uniform,
@@ -15,7 +15,7 @@ from final_class import final
 
 @final
 class Mean(metaclass=multimeta):
-    def __new__(cls, sample: Sample):
+    def __new__(cls, sample: AnySample):
         return SampleMean(sample)
 
     def __new__(cls, distribution: binomial.Distribution):
