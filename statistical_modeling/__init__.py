@@ -2,6 +2,7 @@ from .sample import *
 from .distributions.base import *
 from .factories.mean import Mean
 from .factories.variance import Variance
+from .factories.default_algorithm import DefaultAlgorithm
 from .factories.acf import ACF
 
 from .distributions import (binomial,
