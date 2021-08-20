@@ -1,5 +1,4 @@
 from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
-from abc import abstractmethod
 
 from numpy import random
 
@@ -16,14 +15,13 @@ class Distribution(ContinuousDistribution):
         return self.__n
 
 
-class Algorithm(ContinuousDistributionAlgorithm['Algorithm']):
-    @staticmethod
-    def default(distribution: Distribution) -> 'Algorithm':
-        return StandardAlgorithm()
+class Algorithm(ContinuousDistributionAlgorithm[Distribution]):
+    pass
 
-    @abstractmethod
-    def value(self, distribution: Distribution) -> float:
-        pass
+
+class DefaultAlgorithm:
+    def __new__(cls, distribution: Distribution) -> Algorithm:
+        return StandardAlgorithm()
 
 
 class StandardAlgorithm(Algorithm):

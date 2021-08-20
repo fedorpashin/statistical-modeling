@@ -1,5 +1,4 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
-from abc import abstractmethod
 
 from .cumulative import cumulative
 from math import exp
@@ -20,17 +19,16 @@ class Distribution(DiscreteDistribution):
         return self.__μ
 
 
-class Algorithm(DiscreteDistributionAlgorithm['Algorithm']):
-    @staticmethod
-    def default(distribution: Distribution, threshold: int = 88) -> 'Algorithm':
+class Algorithm(DiscreteDistributionAlgorithm[Distribution]):
+    pass
+
+
+class DefaultAlgorithm:
+    def __new__(cls, distribution: Distribution, threshold: int = 88) -> Algorithm:
         if distribution.µ < threshold:
             return CumulativeAlgorithm()
         else:
             return NormalApproximationAlgorithm()
-
-    @abstractmethod
-    def value(self, distribution: Distribution) -> int:
-        pass
 
 
 class CumulativeAlgorithm(Algorithm):

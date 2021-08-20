@@ -1,5 +1,4 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
-from abc import abstractmethod
 
 from .cumulative import cumulative
 from math import log
@@ -27,14 +26,13 @@ class Distribution(DiscreteDistribution):
         return 1 / log(self.p)
 
 
-class Algorithm(DiscreteDistributionAlgorithm):
-    @staticmethod
-    def default(distribution: Distribution) -> 'Algorithm':
-        return CumulativeAlgorithm()
+class Algorithm(DiscreteDistributionAlgorithm[Distribution]):
+    pass
 
-    @abstractmethod
-    def value(self, distribution: Distribution) -> int:
-        pass
+
+class DefaultAlgorithm:
+    def __new__(cls, distribution: Distribution) -> Algorithm:
+        return CumulativeAlgorithm()
 
 
 class CumulativeAlgorithm(Algorithm):
