@@ -4,6 +4,8 @@ from .factories.mean import Mean
 from .factories.variance import Variance
 from .factories.default_algorithm import DefaultAlgorithm
 from .factories.acf import ACF
+from .random_float import RandomFloat
+from .random_int import RandomInt
 
 from .distributions import (binomial,
                             chi_square,
