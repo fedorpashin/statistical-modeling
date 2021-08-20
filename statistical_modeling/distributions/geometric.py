@@ -1,6 +1,7 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
 from dataclasses import dataclass
 from final_class import final
+from overrides import overrides
 
 from .cumulative import cumulative
 from math import log
@@ -34,6 +35,7 @@ class DefaultAlgorithm:
 
 @final
 class CumulativeAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> int:
         p = distribution.p
         q = distribution.q
@@ -50,6 +52,7 @@ class CumulativeAlgorithm(Algorithm):
 
 @final
 class ForwardAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> int:
         p = distribution.p
         x = 0
@@ -60,6 +63,7 @@ class ForwardAlgorithm(Algorithm):
 
 @final
 class ImprovedCumulativeAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> int:
         q = distribution.q
         M = random.uniform()

@@ -1,6 +1,7 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
 from dataclasses import dataclass
 from final_class import final
+from overrides import overrides
 
 from math import floor
 from numpy import random
@@ -34,6 +35,7 @@ class DefaultAlgorithm:
 
 @final
 class StandardAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> int:
         n = distribution.n
         a = distribution.a

@@ -1,6 +1,7 @@
 from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
 from dataclasses import dataclass
 from final_class import final
+from overrides import overrides
 
 from math import sqrt, log, cos, pi
 from numpy import random
@@ -25,12 +26,14 @@ class DefaultAlgorithm:
 
 @final
 class BoxMullerAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> float:
         return sqrt(-2 * log(random.uniform())) * cos(2 * pi * random.uniform())
 
 
 @final
 class CentralLimitTheoremAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> float:
         return sum([random.uniform() for _ in range(12)]) - 6
 

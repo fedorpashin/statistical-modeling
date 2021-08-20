@@ -1,6 +1,7 @@
 from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
 from dataclasses import dataclass
 from final_class import final
+from overrides import overrides
 
 from math import log
 from numpy import random
@@ -24,6 +25,7 @@ class DefaultAlgorithm:
 
 @final
 class StandardAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> float:
         β = distribution.β
         return β * log(random.uniform())

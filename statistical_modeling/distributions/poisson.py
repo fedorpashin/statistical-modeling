@@ -1,6 +1,7 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
 from dataclasses import dataclass
 from final_class import final
+from overrides import overrides
 
 from .cumulative import cumulative
 from math import exp
@@ -33,6 +34,7 @@ class DefaultAlgorithm:
 
 @final
 class CumulativeAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> int:
         µ = distribution.µ
 
@@ -48,6 +50,7 @@ class CumulativeAlgorithm(Algorithm):
 
 @final
 class MultiplicationAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> int:
         µ = distribution.µ
         x = 0
@@ -63,6 +66,7 @@ class MultiplicationAlgorithm(Algorithm):
 
 @final
 class NormalApproximationAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> int:
         µ = distribution.µ
         return round(random.normal(µ, µ))

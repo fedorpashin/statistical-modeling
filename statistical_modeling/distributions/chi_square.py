@@ -1,6 +1,7 @@
 from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
 from dataclasses import dataclass
 from final_class import final
+from overrides import overrides
 
 from numpy import random
 
@@ -26,6 +27,7 @@ class DefaultAlgorithm:
 
 @final
 class StandardAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> float:
         n = distribution.n
         return sum([random.standard_normal()**2 for _ in range(n)])

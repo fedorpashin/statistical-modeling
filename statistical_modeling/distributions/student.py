@@ -1,6 +1,7 @@
 from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
 from dataclasses import dataclass
 from final_class import final
+from overrides import overrides
 
 from math import sqrt, inf
 from numpy import random
@@ -27,6 +28,7 @@ class DefaultAlgorithm:
 
 @final
 class StandardAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> float:
         n = distribution.n
         return random.uniform() / sqrt(random.chisquare(n) / n)
