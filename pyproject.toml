@@ -1,0 +1,3 @@
+# @todo #28:240min Resolve typing errors and inspections
+
+[tool.mypy]
