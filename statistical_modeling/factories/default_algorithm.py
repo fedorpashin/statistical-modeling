@@ -8,10 +8,11 @@ from ..distributions import (binomial,
                              poisson,
                              standard_normal,
                              student)
-
 from multimethod import multimeta
+from final_class import final
 
 
+@final
 class DefaultAlgorithm(metaclass=multimeta):
     def __new__(cls, distribution: binomial.Distribution):
         return binomial.DefaultAlgorithm(distribution)

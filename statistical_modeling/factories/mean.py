@@ -9,10 +9,11 @@ from ..distributions import (binomial,
                              poisson,
                              standard_normal,
                              student)
-
 from multimethod import multimeta
+from final_class import final
 
 
+@final
 class Mean(metaclass=multimeta):
     def __new__(cls, sample: Sample):
         return SampleMean(sample)

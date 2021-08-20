@@ -1,9 +1,11 @@
 from . import ContinuousDistribution, ContinuousDistributionAlgorithm, DefaultAlgorithm
 from typing import TypeVar
+from final_class import final
 
 T = TypeVar('T', bound=ContinuousDistribution)
 
 
+@final
 class RandomFloat(float):
     __distribution: T
     __algorithm: ContinuousDistributionAlgorithm[T]

@@ -1,10 +1,13 @@
 from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
 from dataclasses import dataclass
+from final_class import final
+from overrides import overrides
 
 from math import sqrt, log, cos, pi
 from numpy import random
 
 
+@final
 @dataclass(frozen=True, init=False)
 class Distribution(ContinuousDistribution):
     μ: float = 0
@@ -15,21 +18,27 @@ class Algorithm(ContinuousDistributionAlgorithm[Distribution]):
     pass
 
 
+@final
 class DefaultAlgorithm:
     def __new__(cls, distribution: Distribution) -> Algorithm:
         return BoxMullerAlgorithm()
 
 
+@final
 class BoxMullerAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> float:
         return sqrt(-2 * log(random.uniform())) * cos(2 * pi * random.uniform())
 
 
+@final
 class CentralLimitTheoremAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> float:
         return sum([random.uniform() for _ in range(12)]) - 6
 
 
+@final
 class Mean(DistributionMean):
     __distribution: Distribution
 
@@ -42,6 +51,7 @@ class Mean(DistributionMean):
         return µ
 
 
+@final
 class Variance(DistributionVariance):
     __distribution: Distribution
 

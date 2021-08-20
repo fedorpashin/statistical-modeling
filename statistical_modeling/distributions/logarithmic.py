@@ -1,5 +1,7 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
 from dataclasses import dataclass
+from final_class import final
+from overrides import overrides
 
 from .cumulative import cumulative
 from math import log
@@ -7,6 +9,7 @@ from math import log
 from functools import cached_property, lru_cache
 
 
+@final
 @dataclass(frozen=True)
 class Distribution(DiscreteDistribution):
     q: float
@@ -27,12 +30,15 @@ class Algorithm(DiscreteDistributionAlgorithm[Distribution]):
     pass
 
 
+@final
 class DefaultAlgorithm:
     def __new__(cls, distribution: Distribution) -> Algorithm:
         return CumulativeAlgorithm()
 
 
+@final
 class CumulativeAlgorithm(Algorithm):
+    @overrides
     def value(self, distribution: Distribution) -> int:
         α = distribution.α
         q = distribution.q
@@ -47,6 +53,7 @@ class CumulativeAlgorithm(Algorithm):
         return cumulative(p_of, x=1)
 
 
+@final
 class Mean(DistributionMean):
     __distribution: Distribution
 
@@ -61,6 +68,7 @@ class Mean(DistributionMean):
         return -α * q / p
 
 
+@final
 class Variance(DistributionVariance):
     __distribution: Distribution
 

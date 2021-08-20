@@ -51,11 +51,6 @@ class DistributionMean(ABC, float):
     def __init__(self, distribution: Distribution):
         self.__distribution = distribution
 
-    @staticmethod
-    @abstractmethod
-    def __value(distribution: Distribution) -> float:
-        pass
-
     @property
     def distribution(self) -> Distribution:
         return self.__distribution
@@ -66,11 +61,6 @@ class DistributionVariance(ABC, float):
 
     def __init__(self, distribution: Distribution):
         self.__distribution = distribution
-
-    @staticmethod
-    @abstractmethod
-    def __value(distribution: Distribution) -> float:
-        pass
 
     @property
     def distribution(self) -> Distribution:
