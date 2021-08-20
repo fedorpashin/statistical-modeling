@@ -1,12 +1,26 @@
+from abc import ABC, abstractmethod
+
 from functools import cached_property
 
-__all__ = ['Sample',
+__all__ = ['AnySample',
+           'Sample',
            'SampleMean',
            'SampleVariance',
            'SampleACF']
 
 
-class Sample:
+class AnySample(ABC):
+    @property
+    @abstractmethod
+    def x(self) -> list[float]:
+        pass
+
+    @cached_property
+    def n(self) -> int:
+        return len(self.x)
+
+
+class Sample(AnySample):
     __x: list[float]
 
     def __init__(self, x: list[float]):
@@ -19,18 +33,14 @@ class Sample:
     def x(self):
         return self.__x
 
-    @cached_property
-    def n(self):
-        return len(self.__x)
-
 
 class SampleMean(float):
-    __sample: Sample
+    __sample: AnySample
 
-    def __new__(cls, sample: Sample) -> 'SampleMean':
+    def __new__(cls, sample: AnySample) -> 'SampleMean':
         return super().__new__(cls, cls.__value(sample))
 
-    def __init__(self, sample: Sample):
+    def __init__(self, sample: AnySample):
         self.__sample = sample
 
     @property
@@ -38,19 +48,19 @@ class SampleMean(float):
         return self.__sample
 
     @staticmethod
-    def __value(sample: Sample) -> float:
+    def __value(sample: AnySample) -> float:
         x = sample.x
         n = sample.n
         return sum(x) / n
 
 
 class SampleVariance(float):
-    __sample: Sample
+    __sample: AnySample
 
-    def __new__(cls, sample: Sample) -> 'SampleVariance':
+    def __new__(cls, sample: AnySample) -> 'SampleVariance':
         return super().__new__(cls, cls.__value(sample))
 
-    def __init__(self, sample: Sample):
+    def __init__(self, sample: AnySample):
         self.__sample = sample
 
     @property
@@ -58,7 +68,7 @@ class SampleVariance(float):
         return self.__sample
 
     @staticmethod
-    def __value(sample: Sample) -> float:
+    def __value(sample: AnySample) -> float:
         x = sample.x
         n = sample.n
         mean = SampleMean(sample)
@@ -66,13 +76,13 @@ class SampleVariance(float):
 
 
 class SampleACF(float):
-    __sample: Sample
+    __sample: AnySample
     __f: int
 
-    def __new__(cls, sample: Sample, f: int) -> 'SampleACF':
+    def __new__(cls, sample: AnySample, f: int) -> 'SampleACF':
         return super().__new__(cls, cls.__value(sample, f))
 
-    def __init__(self, sample: Sample, f: int):
+    def __init__(self, sample: AnySample, f: int):
         self.__sample = sample
         self.__f = f
 
@@ -85,7 +95,7 @@ class SampleACF(float):
         return self.__f
 
     @staticmethod
-    def __value(sample: Sample, f: int) -> float:
+    def __value(sample: AnySample, f: int) -> float:
         x = sample.x
         n = sample.n
         mean = SampleMean(sample)
