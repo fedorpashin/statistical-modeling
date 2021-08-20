@@ -1,5 +1,6 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
 from dataclasses import dataclass
+from final_class import final
 
 from .cumulative import cumulative
 from math import sqrt
@@ -8,6 +9,7 @@ from numpy import random
 from functools import cached_property, lru_cache
 
 
+@final
 @dataclass(frozen=True)
 class Distribution(DiscreteDistribution):
     n: int
@@ -26,6 +28,7 @@ class Algorithm(DiscreteDistributionAlgorithm[Distribution]):
     pass
 
 
+@final
 class DefaultAlgorithm:
     def __new__(cls, distribution: Distribution, threshold: int = 100) -> Algorithm:
         if distribution.n < threshold:
@@ -34,6 +37,7 @@ class DefaultAlgorithm:
             return NormalApproximationAlgorithm()
 
 
+@final
 class CumulativeAlgorithm(Algorithm):
     def value(self, distribution: Distribution) -> int:
         n = distribution.n
@@ -50,6 +54,7 @@ class CumulativeAlgorithm(Algorithm):
         return cumulative(p_of)
 
 
+@final
 class NormalApproximationAlgorithm(Algorithm):
     def value(self, distribution: Distribution) -> int:
         n = distribution.n
@@ -58,6 +63,7 @@ class NormalApproximationAlgorithm(Algorithm):
         return round(random.normal(n * p, sqrt(n * p * q)) + 0.5)
 
 
+@final
 class Mean(DistributionMean):
     __distribution: Distribution
 
@@ -71,6 +77,7 @@ class Mean(DistributionMean):
         return n * p
 
 
+@final
 class Variance(DistributionVariance):
     __distribution: Distribution
 

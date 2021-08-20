@@ -1,6 +1,7 @@
 from .sample import AnySample
 from . import Distribution, DistributionAlgorithm, DefaultAlgorithm
 from typing import TypeVar
+from final_class import final
 
 from functools import cached_property
 
@@ -8,6 +9,7 @@ T = TypeVar('T', bound=Distribution)
 U = TypeVar('U')
 
 
+@final
 class RandomSample(AnySample):
     __n: int
     __distribution: T

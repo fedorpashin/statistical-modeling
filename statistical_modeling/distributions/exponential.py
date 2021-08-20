@@ -1,10 +1,12 @@
 from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
 from dataclasses import dataclass
+from final_class import final
 
 from math import log
 from numpy import random
 
 
+@final
 @dataclass(frozen=True)
 class Distribution(ContinuousDistribution):
     β: float
@@ -14,17 +16,20 @@ class Algorithm(ContinuousDistributionAlgorithm[Distribution]):
     pass
 
 
+@final
 class DefaultAlgorithm:
     def __new__(cls, distribution: Distribution) -> Algorithm:
         return StandardAlgorithm()
 
 
+@final
 class StandardAlgorithm(Algorithm):
     def value(self, distribution: Distribution) -> float:
         β = distribution.β
         return β * log(random.uniform())
 
 
+@final
 class Mean(DistributionMean):
     __distribution: Distribution
 
@@ -37,6 +42,7 @@ class Mean(DistributionMean):
         return β
 
 
+@final
 class Variance(DistributionVariance):
     __distribution: Distribution
 

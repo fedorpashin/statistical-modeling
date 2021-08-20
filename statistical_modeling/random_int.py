@@ -1,9 +1,11 @@
 from . import DiscreteDistribution, DiscreteDistributionAlgorithm, DefaultAlgorithm
 from typing import TypeVar
+from final_class import final
 
 T = TypeVar('T', bound=DiscreteDistribution)
 
 
+@final
 class RandomInt(int):
     __distribution: T
     __algorithm: DiscreteDistributionAlgorithm[T]

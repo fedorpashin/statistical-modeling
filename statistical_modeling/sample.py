@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from final_class import final
 
 from functools import cached_property
 
@@ -20,6 +21,7 @@ class AnySample(ABC):
         return len(self.x)
 
 
+@final
 class Sample(AnySample):
     __x: list[float]
 
@@ -34,6 +36,7 @@ class Sample(AnySample):
         return self.__x
 
 
+@final
 class SampleMean(float):
     __sample: AnySample
 
@@ -54,6 +57,7 @@ class SampleMean(float):
         return sum(x) / n
 
 
+@final
 class SampleVariance(float):
     __sample: AnySample
 
@@ -75,6 +79,7 @@ class SampleVariance(float):
         return sum([(x_i - mean)**2 for x_i in x]) / n
 
 
+@final
 class SampleACF(float):
     __sample: AnySample
     __f: int

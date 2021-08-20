@@ -1,9 +1,11 @@
 from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
 from dataclasses import dataclass
+from final_class import final
 
 from numpy import random
 
 
+@final
 @dataclass(frozen=True)
 class Distribution(ContinuousDistribution):
     n: int
@@ -16,17 +18,20 @@ class Algorithm(ContinuousDistributionAlgorithm[Distribution]):
     pass
 
 
+@final
 class DefaultAlgorithm:
     def __new__(cls, distribution: Distribution) -> Algorithm:
         return StandardAlgorithm()
 
 
+@final
 class StandardAlgorithm(Algorithm):
     def value(self, distribution: Distribution) -> float:
         n = distribution.n
         return sum([random.standard_normal()**2 for _ in range(n)])
 
 
+@final
 class Mean(DistributionMean):
     __distribution: Distribution
 
@@ -39,6 +44,7 @@ class Mean(DistributionMean):
         return n
 
 
+@final
 class Variance(DistributionVariance):
     __distribution: Distribution
 
