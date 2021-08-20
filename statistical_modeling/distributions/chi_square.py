@@ -16,8 +16,11 @@ class Distribution(ContinuousDistribution):
 
 
 class Algorithm(ContinuousDistributionAlgorithm[Distribution]):
-    @staticmethod
-    def default(distribution: Distribution) -> 'Algorithm':
+    pass
+
+
+class DefaultAlgorithm:
+    def __new__(cls, distribution: Distribution) -> Algorithm:
         return StandardAlgorithm()
 
 

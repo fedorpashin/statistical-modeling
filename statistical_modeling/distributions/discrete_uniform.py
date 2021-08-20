@@ -28,8 +28,11 @@ class Distribution(DiscreteDistribution):
 
 
 class Algorithm(DiscreteDistributionAlgorithm[Distribution]):
-    @staticmethod
-    def default(distribution: Distribution) -> 'Algorithm':
+    pass
+
+
+class DefaultAlgorithm:
+    def __new__(cls, distribution: Distribution) -> Algorithm:
         pass
 
 

@@ -31,8 +31,11 @@ class Distribution(DiscreteDistribution):
 
 
 class Algorithm(DiscreteDistributionAlgorithm[Distribution]):
-    @staticmethod
-    def default(distribution: Distribution, threshold: int = 100) -> 'Algorithm':
+    pass
+
+
+class DefaultAlgorithm:
+    def __new__(cls, distribution: Distribution, threshold: int = 100) -> Algorithm:
         if distribution.n < threshold:
             return CumulativeAlgorithm()
         else:
