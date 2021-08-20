@@ -12,12 +12,20 @@ import statistical_modeling as sm
 
 from matplotlib import pyplot as plt
 
-s = sm.BinomialDistribution(10, 0.5).sample(100, sm.BinomialDistribution.Algorithm.cumulative)
+print(sm.RandomInt(sm.geometric.Distribution(0.1)))
 
-print(f"Mean = {s.mean}, Variance = {s.variance}")
+s = sm.RandomSample(
+    100,
+    sm.binomial.Distribution(10, 0.5),
+    sm.binomial.CumulativeAlgorithm()
+)
+
+print(
+    f"Mean = {sm.Mean(s)},\n"
+    f"Variance = {sm.Variance(s)}"
+)
 
 fig, ax = plt.subplots()
-s.plot_pdf(ax)
+sm.plot_pdf(s, ax)
 fig.show()
 ```
-
