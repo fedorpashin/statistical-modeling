@@ -1,4 +1,4 @@
-from statistical_modeling import ContinuousDistribution, ContinuousDistributionAlgorithm, DefaultAlgorithm
+from . import ContinuousDistribution, ContinuousDistributionAlgorithm, DefaultAlgorithm
 from typing import TypeVar
 
 T = TypeVar('T', bound=ContinuousDistribution)
