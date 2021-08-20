@@ -7,7 +7,10 @@ __all__ = ['AnySample',
            'Sample',
            'SampleMean',
            'SampleVariance',
-           'SampleACF']
+           'SampleACF',
+           'plot_correlogram',
+           'plot_pdf',
+           'plot_cdf']
 
 
 class AnySample(ABC):
