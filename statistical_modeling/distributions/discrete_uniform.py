@@ -1,5 +1,4 @@
 from .base import DiscreteDistribution, DiscreteDistributionAlgorithm, DistributionMean, DistributionVariance
-from abc import abstractmethod
 
 from math import floor
 from numpy import random
@@ -31,10 +30,6 @@ class Distribution(DiscreteDistribution):
 class Algorithm(DiscreteDistributionAlgorithm[Distribution]):
     @staticmethod
     def default(distribution: Distribution) -> 'Algorithm':
-        pass
-
-    @abstractmethod
-    def value(self, distribution: Distribution) -> int:
         pass
 
 

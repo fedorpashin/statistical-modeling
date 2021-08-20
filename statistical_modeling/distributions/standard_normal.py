@@ -1,5 +1,4 @@
 from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
-from abc import abstractmethod
 
 from math import sqrt, log, cos, pi
 from numpy import random
@@ -22,10 +21,6 @@ class Algorithm(ContinuousDistributionAlgorithm[Distribution]):
     @staticmethod
     def default(distribution: Distribution) -> 'Algorithm':
         return BoxMullerAlgorithm()
-
-    @abstractmethod
-    def value(self, distribution: Distribution) -> float:
-        pass
 
 
 class BoxMullerAlgorithm(Algorithm):
