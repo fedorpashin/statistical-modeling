@@ -1,5 +1,10 @@
 # statistical-modeling
 
+
+[![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
+[![Managed By Self XDSD](https://self-xdsd.com/b/mbself.svg)](https://self-xdsd.com/p/fedorpashin/statistical-modeling?provider=github)
+
+
 **statistical-modeling** is a Python package that provides two main features:
 
 - Statistical analysis of samples
