@@ -27,20 +27,19 @@ T = TypeVar('T')
 U = TypeVar('U')
 
 
-class DistributionAlgorithm(ABC, Generic[T]):
-    @staticmethod
+class DistributionAlgorithm(ABC, Generic[T, U]):
     @abstractmethod
-    def default(distribution: T) -> 'DistributionAlgorithm[T]':
+    def value(self, distribution: T) -> U:
         pass
 
 
-class DiscreteDistributionAlgorithm(DistributionAlgorithm[T], Generic[T]):
+class DiscreteDistributionAlgorithm(DistributionAlgorithm[T, int], Generic[T]):
     @abstractmethod
     def value(self, distribution: T) -> int:
         pass
 
 
-class ContinuousDistributionAlgorithm(DistributionAlgorithm[T], Generic[T]):
+class ContinuousDistributionAlgorithm(DistributionAlgorithm[T, float], Generic[T]):
     @abstractmethod
     def value(self, distribution: T) -> float:
         pass
