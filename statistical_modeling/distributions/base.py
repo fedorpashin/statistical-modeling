@@ -28,10 +28,7 @@ U = TypeVar('U')
 
 
 class DistributionAlgorithm(ABC, Generic[T]):
-    @staticmethod
-    @abstractmethod
-    def default(distribution: T) -> 'DistributionAlgorithm[T]':
-        pass
+    pass
 
 
 class DiscreteDistributionAlgorithm(DistributionAlgorithm[T], Generic[T]):
