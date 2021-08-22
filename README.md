@@ -1,9 +1,12 @@
 # statistical-modeling
 
+[![build](https://github.com/fedorpashin/statistical-modeling/workflows/build/badge.svg)](https://github.com/fedorpashin/statistical-modeling/actions)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5ad08c640f519df6fdf1/maintainability)](https://codeclimate.com/github/fedorpashin/statistical-modeling/maintainability)
+[![codecov](https://codecov.io/gh/fedorpashin/statistical-modeling/branch/master/graph/badge.svg?token=XTOKOAMMZJ)](https://codecov.io/gh/fedorpashin/statistical-modeling)
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![Managed By Self XDSD](https://self-xdsd.com/b/mbself.svg)](https://self-xdsd.com/p/fedorpashin/statistical-modeling?provider=github)
-
 
 **statistical-modeling** is a Python package that provides two main features:
 
