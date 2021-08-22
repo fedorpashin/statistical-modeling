@@ -1,4 +1,8 @@
-from statistical_modeling.distributions.chi_square import Distribution, Mean, Variance
+from statistical_modeling.distributions.chi_square import (
+    Distribution,
+    Mean,
+    Variance
+)
 
 from typing import Final
 

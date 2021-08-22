@@ -1,4 +1,9 @@
-from statistical_modeling.sample import Sample, SampleMean, SampleVariance, SampleACF
+from statistical_modeling.sample import (
+    Sample,
+    SampleMean,
+    SampleVariance,
+    SampleACF
+)
 
 from typing import Final
 

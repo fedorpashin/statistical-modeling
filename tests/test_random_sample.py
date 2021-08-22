@@ -1,4 +1,6 @@
-from statistical_modeling.distributions import geometric, logarithmic
+from statistical_modeling.distributions import (
+    geometric, logarithmic
+)
 from statistical_modeling import RandomSample
 
 from typing import Final

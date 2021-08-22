@@ -1,4 +1,6 @@
-from statistical_modeling.distributions import binomial, exponential
+from statistical_modeling.distributions import (
+    binomial, exponential
+)
 from statistical_modeling import RandomInt
 
 from typing import Final

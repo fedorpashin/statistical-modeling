@@ -1,4 +1,8 @@
-from . import ContinuousDistribution, ContinuousDistributionAlgorithm, DefaultAlgorithm
+from . import (
+    ContinuousDistribution,
+    ContinuousDistributionAlgorithm,
+    DefaultAlgorithm
+)
 from typing import TypeVar
 from final_class import final
 
@@ -10,7 +14,9 @@ class RandomFloat(float):
     __distribution: T
     __algorithm: ContinuousDistributionAlgorithm[T]
 
-    def __new__(cls, distribution: T, algorithm: ContinuousDistributionAlgorithm[T] = None) -> 'RandomFloat':
+    def __new__(
+        cls, distribution: T, algorithm: ContinuousDistributionAlgorithm[T] = None
+    ) -> 'RandomFloat':
         if algorithm is not None:
             return super().__new__(cls, cls.__value(distribution, algorithm))
         else:
@@ -24,7 +30,9 @@ class RandomFloat(float):
             self.__algorithm = DefaultAlgorithm(distribution)
 
     @staticmethod
-    def __value(distribution: ContinuousDistribution, algorithm: ContinuousDistributionAlgorithm) -> float:
+    def __value(
+        distribution: ContinuousDistribution, algorithm: ContinuousDistributionAlgorithm
+    ) -> float:
         return algorithm.value(distribution)
 
     @property

@@ -1,5 +1,9 @@
 from .sample import AnySample
-from . import Distribution, DistributionAlgorithm, DefaultAlgorithm
+from . import (
+    Distribution,
+    DistributionAlgorithm,
+    DefaultAlgorithm
+)
 from typing import TypeVar
 from final_class import final
 from overrides import overrides
@@ -24,7 +28,7 @@ class RandomSample(AnySample):
         else:
             self.__algorithm = DefaultAlgorithm(distribution)
 
-    @cached_property # noqa
+    @cached_property  # noqa
     @overrides
     def x(self) -> list[float]:
         return [self.algorithm.value(self.distribution) for _ in range(self.__n)]

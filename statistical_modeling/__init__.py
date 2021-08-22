@@ -7,14 +7,15 @@ from .factories.acf import ACF
 from .random_float import RandomFloat
 from .random_int import RandomInt
 from .random_sample import RandomSample
-
-from .distributions import (binomial,
-                            chi_square,
-                            continuous_uniform,
-                            discrete_uniform,
-                            exponential,
-                            geometric,
-                            logarithmic,
-                            poisson,
-                            standard_normal,
-                            student)
+from .distributions import (
+    binomial,
+    chi_square,
+    continuous_uniform,
+    discrete_uniform,
+    exponential,
+    geometric,
+    logarithmic,
+    poisson,
+    standard_normal,
+    student,
+)
