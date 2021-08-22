@@ -3,7 +3,6 @@ import statistical_modeling as sm
 from typing import Final
 
 import unittest
-from numpy.testing import assert_equal
 
 
 class TestACF(unittest.TestCase):
