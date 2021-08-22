@@ -1,8 +1,8 @@
-from . import (
+from .distributions.base import (
     DiscreteDistribution,
     DiscreteDistributionAlgorithm,
-    DefaultAlgorithm
 )
+from .factories.default_algorithm import DefaultAlgorithm
 from typing import TypeVar
 from final_class import final
 

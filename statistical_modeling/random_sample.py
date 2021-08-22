@@ -1,9 +1,9 @@
 from .sample import AnySample
-from . import (
+from .distributions.base import (
     Distribution,
-    DistributionAlgorithm,
-    DefaultAlgorithm
+    DistributionAlgorithm
 )
+from .factories.default_algorithm import DefaultAlgorithm
 from typing import TypeVar
 from final_class import final
 from overrides import overrides
