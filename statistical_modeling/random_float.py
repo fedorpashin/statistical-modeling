@@ -8,6 +8,10 @@ from final_class import final
 
 T = TypeVar('T', bound=ContinuousDistribution)
 
+__all__ = [
+    'RandomFloat',
+]
+
 
 @final
 class RandomFloat(float):

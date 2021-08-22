@@ -14,6 +14,10 @@ from ..distributions import (
 from multimethod import multimeta
 from final_class import final
 
+__all__ = [
+    'Mean',
+]
+
 
 @final
 class Mean(metaclass=multimeta):

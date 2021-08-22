@@ -10,6 +10,10 @@ from overrides import overrides
 
 from functools import cached_property
 
+__all__ = [
+    'RandomSample',
+]
+
 T = TypeVar('T', bound=Distribution)
 U = TypeVar('U')
 

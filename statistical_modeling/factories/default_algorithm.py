@@ -13,6 +13,10 @@ from ..distributions import (
 from multimethod import multimeta
 from final_class import final
 
+__all__ = [
+    'DefaultAlgorithm',
+]
+
 
 @final
 class DefaultAlgorithm(metaclass=multimeta):

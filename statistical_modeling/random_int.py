@@ -8,6 +8,10 @@ from final_class import final
 
 T = TypeVar('T', bound=DiscreteDistribution)
 
+__all__ = [
+    'RandomInt',
+]
+
 
 @final
 class RandomInt(int):
