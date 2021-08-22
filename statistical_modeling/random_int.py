@@ -1,8 +1,16 @@
-from . import DiscreteDistribution, DiscreteDistributionAlgorithm, DefaultAlgorithm
+from .distributions.base import (
+    DiscreteDistribution,
+    DiscreteDistributionAlgorithm,
+)
+from .factories.default_algorithm import DefaultAlgorithm
 from typing import TypeVar
 from final_class import final
 
 T = TypeVar('T', bound=DiscreteDistribution)
+
+__all__ = [
+    'RandomInt',
+]
 
 
 @final
@@ -10,7 +18,9 @@ class RandomInt(int):
     __distribution: T
     __algorithm: DiscreteDistributionAlgorithm[T]
 
-    def __new__(cls, distribution: T, algorithm: DiscreteDistributionAlgorithm[T] = None) -> 'RandomInt':
+    def __new__(
+        cls, distribution: T, algorithm: DiscreteDistributionAlgorithm[T] = None
+    ) -> 'RandomInt':
         if algorithm is not None:
             return super().__new__(cls, cls.__value(distribution, algorithm))
         else:
@@ -24,7 +34,9 @@ class RandomInt(int):
             self.__algorithm = DefaultAlgorithm(distribution)
 
     @staticmethod
-    def __value(distribution: DiscreteDistribution, algorithm: DiscreteDistributionAlgorithm) -> int:
+    def __value(
+        distribution: DiscreteDistribution, algorithm: DiscreteDistributionAlgorithm
+    ) -> int:
         return algorithm.value(distribution)
 
     @property

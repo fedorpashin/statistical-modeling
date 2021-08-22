@@ -1,14 +1,16 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
 
-__all__ = ['Distribution',
-           'DiscreteDistribution',
-           'ContinuousDistribution',
-           'DistributionAlgorithm',
-           'DiscreteDistributionAlgorithm',
-           'ContinuousDistributionAlgorithm',
-           'DistributionMean',
-           'DistributionVariance']
+__all__ = [
+    'Distribution',
+    'DiscreteDistribution',
+    'ContinuousDistribution',
+    'DistributionAlgorithm',
+    'DiscreteDistributionAlgorithm',
+    'ContinuousDistributionAlgorithm',
+    'DistributionMean',
+    'DistributionVariance',
+]
 
 
 class Distribution(ABC):

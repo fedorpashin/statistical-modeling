@@ -1,4 +1,9 @@
-from .base import ContinuousDistribution, ContinuousDistributionAlgorithm, DistributionMean, DistributionVariance
+from .base import (
+    ContinuousDistribution,
+    ContinuousDistributionAlgorithm,
+    DistributionMean,
+    DistributionVariance,
+)
 from dataclasses import dataclass
 from final_class import final
 from overrides import overrides

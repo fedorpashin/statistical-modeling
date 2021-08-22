@@ -1,3 +1,7 @@
 # @todo #28:240min Resolve typing errors and inspections
 
 [tool.mypy]
+
+[tool.black]
+line-length = 100
+skip-string-normalization = true

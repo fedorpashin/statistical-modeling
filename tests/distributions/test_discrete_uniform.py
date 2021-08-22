@@ -1,4 +1,8 @@
-from statistical_modeling.distributions.discrete_uniform import Distribution, Mean, Variance
+from statistical_modeling.distributions.discrete_uniform import (
+    Distribution,
+    Mean,
+    Variance
+)
 
 from typing import Final
 

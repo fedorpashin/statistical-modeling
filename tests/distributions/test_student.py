@@ -1,4 +1,8 @@
-from statistical_modeling.distributions.student import Distribution, Mean, Variance
+from statistical_modeling.distributions.student import (
+    Distribution,
+    Mean,
+    Variance
+)
 
 from typing import Final
 

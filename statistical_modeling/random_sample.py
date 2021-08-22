@@ -1,10 +1,18 @@
 from .sample import AnySample
-from . import Distribution, DistributionAlgorithm, DefaultAlgorithm
+from .distributions.base import (
+    Distribution,
+    DistributionAlgorithm
+)
+from .factories.default_algorithm import DefaultAlgorithm
 from typing import TypeVar
 from final_class import final
 from overrides import overrides
 
 from functools import cached_property
+
+__all__ = [
+    'RandomSample',
+]
 
 T = TypeVar('T', bound=Distribution)
 U = TypeVar('U')
@@ -24,7 +32,7 @@ class RandomSample(AnySample):
         else:
             self.__algorithm = DefaultAlgorithm(distribution)
 
-    @cached_property # noqa
+    @cached_property  # noqa
     @overrides
     def x(self) -> list[float]:
         return [self.algorithm.value(self.distribution) for _ in range(self.__n)]

@@ -1,16 +1,22 @@
 from ..sample import AnySample, SampleMean
-from ..distributions import (binomial,
-                             chi_square,
-                             continuous_uniform,
-                             discrete_uniform,
-                             exponential,
-                             geometric,
-                             logarithmic,
-                             poisson,
-                             standard_normal,
-                             student)
+from ..distributions import (
+    binomial,
+    chi_square,
+    continuous_uniform,
+    discrete_uniform,
+    exponential,
+    geometric,
+    logarithmic,
+    poisson,
+    standard_normal,
+    student,
+)
 from multimethod import multimeta
 from final_class import final
+
+__all__ = [
+    'Mean',
+]
 
 
 @final
